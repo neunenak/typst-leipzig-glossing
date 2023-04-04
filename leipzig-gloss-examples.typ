@@ -91,7 +91,7 @@ See https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf
     header_text: [Russian],
     source_text: ([My], [s], [Marko], [poexa-l-i], [avtobus-om], [v], [Peredelkino]),
     morphemes: ([1#pl], [#com], [Marko], [go-#pst\-#pl], [bus-#ins], [#all], [Peredelkino]),
-    additional_gloss_lines: (([we], [with], [Marko], [go-#pst\-#pl], [bus-by], [to], [Peredelkino]),),
+    gloss_lines: (([we], [with], [Marko], [go-#pst\-#pl], [bus-by], [to], [Peredelkino]),),
     translation: "Marko and I went to Perdelkino by bus",
 )
 
