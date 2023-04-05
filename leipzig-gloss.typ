@@ -88,6 +88,10 @@
         }
     }
 
+    if numbering {
+        gloss_count.step()
+    }
+    
     let gloss_number = if numbering {
         [(#gloss_count.display())]
     } else {
@@ -95,10 +99,6 @@
     }
 
     [#gloss_number #pad(left: 1em)[#gloss_items]]
-
-    if numbering {
-        gloss_count.step()
-    }
 }
 
 #let numbered_gloss = gloss.with(numbering: true)
