@@ -166,10 +166,6 @@
         ]
     }
     )
-
-    if numbering {
-        gloss_count.step()
-    }
 }
 
 #let numbered_gloss = gloss.with(numbering:true)
