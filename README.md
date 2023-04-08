@@ -5,3 +5,7 @@
 
 
 Generate the example pdf by running: `just build-example`.
+
+# License
+
+This library uses the MIT license; see `LICENSE.txt`.
