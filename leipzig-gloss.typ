@@ -17,7 +17,7 @@
 
     for item_index in range(0, len) {
         let args = ()
-        for line_idx, formatter in formatters {
+        for (line_idx, formatter) in formatters.enumerate() {
             let formatter_fn = if formatter == none {
                 (x) => x
             } else {

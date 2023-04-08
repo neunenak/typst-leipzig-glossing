@@ -3,4 +3,4 @@ default:
 
 
 build-example:
-    typst leipzig-gloss-examples.typ
+    typst compile leipzig-gloss-examples.typ
