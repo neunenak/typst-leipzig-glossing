@@ -1,19 +1,9 @@
-#import "leipzig-gloss.typ": gloss, numbered_gloss
+#import "leipzig-gloss.typ": *
 #import "linguistic-abbreviations.typ": *
 
-= Leipzig Glossing Examples
+= Leipzig Glossing for Typst
 
-This is the classic example of the inflected Georgian verb with an 8-segment consonant cluster:
-
-#gloss(
-    source_text: ([გვ-ფრცქვნ-ი],),
-    source_text_style: none,
-    transliteration: ([gv-prtskvn-i],),
-    morphemes: ([1pl.#obj\-peel-#fmnt],),
-    translation: "You peeled us",
-)
-
-Some more Georgian:
+This module provides functionality to create aligned leipzig-style glosses in Typst. For example, here's a gloss of a text in Georgian:
 
 #gloss(
     header_text: [from "Georgian and the Unaccusative Hypothesis", Harris, 1982],
@@ -24,8 +14,11 @@ Some more Georgian:
     translation: [The child burst out crying],
 )
 
-```typst
-
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  [```typst
 #gloss(
     header_text: [from "Georgian and the Unaccusative Hypothesis", Harris, 1982],
     source_text: ([ბავშვ-ი], [ატირდა]),
@@ -34,30 +27,10 @@ Some more Georgian:
     morphemes: ([child-#smallcaps[nom]], [3S/cry/#smallcaps[incho]/II]),
     translation: [The child burst out crying],
 )
-```
-
-And how about an example in English:
-
-#gloss(
-  source_text: ([I'm], [eat-ing], [your], [head]),
-  morphemes: ([1#sg.#sbj\=to.be], [eat-#prog], [2#sg.#pos], [head]),
-  morphemes_style: text.with(fill: blue),
-  translation: text(weight: "semibold")[I'm eating your head!],
+```],
 )
 
-```typst
-#gloss(
-  source_text: ([I'm], [eat-ing], [your], [head]),
-  morphemes: ([1#sg.#subj\=to.be], [eat-#prog], [2#sg.#pos], [head]),
-  morphemes_style: text.with(fill: blue),
-  translation: text(weight: "semibold")[I'm eating your head!],
-)
-```
-
-== Leipzig Glossing Rules PDF examples
-
-See https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf
-
+To number gloss examples, use `#numbered_gloss` in place of `gloss`:
 
 #numbered_gloss(
     header_text: [Indonesian (Sneddon 1996:237)],
@@ -65,6 +38,111 @@ See https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf
     morphemes: ([they], [in], [Jakarta], [now]),
     translation: "They are in Jakarta now",
 )
+
+The displayed number for numbered glosses is iterated for each numbered gloss that appears throughout the document. Unnumbered glosses are not factored into this.
+
+#gloss(
+    header_text: [Lezgian (Haspelmath 1993:207)],
+    source_text: ([Gila], [abur-u-n], [ferma], [hamišaluǧ], [güǧüna], [amuq’-da-č.]),
+    morphemes: ([now], [they-#obl\-#gen], [farm], [forever], [behind], [stay-#fut\-#neg]),
+    translation: "Now their farm will not stay behind forever.",
+)
+
+#numbered_gloss(
+    header_text: [West Greenlandic (Fortescue 1984:127)],
+    source_text: ([palasi=lu], [niuirtur=lu]),
+    morphemes: ([priest=and], [shopkeeper=and]),
+    translation: "both the priest and the shopkeeper",
+)
+
+== Specifying text \& style for each line of a gloss
+
+The `#gloss` function has three pre-defined parameters for glossing levels: `source_text`, `transliteration`, and `morphemes`. It also has two parameters for unaligned text: `header_text` for text that precedes the gloss, and `translation` for text that follows the gloss. Each of these parameters has a corresponding style parameter, formed by adding `_style` to its name. This allows you to specify various style elements individually for each line, like so:
+
+#gloss(
+  header_text: [This text is about eating your head.],
+  header_text_style: text.with(weight: "bold", fill: green),
+  source_text: ([I'm], [eat-ing], [your], [head]),
+  source_text_style: text.with(style: "italic", fill: red),
+  morphemes: ([1#sg.#sbj\=to.be], [eat-#prog], [2#sg.#pos], [head]),
+  morphemes_style: text.with(fill: blue),
+  translation: text(weight: "semibold")[I'm eating your head!],
+)
+
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+[```typst
+#gloss(
+  header_text: [This text is about eating your head.],
+  header_text_style: text.with(weight: "bold", fill: green),
+  source_text: ([I'm], [eat-ing], [your], [head]),
+  source_text_style: text.with(style: "italic", fill: red),
+  morphemes: ([1#sg.#sbj\=to.be], [eat-#prog], [2#sg.#pos], [head]),
+  morphemes_style: text.with(fill: blue),
+  translation: text(weight: "semibold")[I'm eating your head!],
+)
+```])
+
+As seen above, the style for unaligned lines like `header_text` and `translation` may be specified either with the associated `_style` parameter or by directly modifying the content. The same is not true of the glossed lines -- they must be specified using the relevant `_style` attribute.
+
+If one wishes to add more than three glossing lines, there is an additional parameter `gloss_lines` that can take a list of arbitrarily many more glossing lines, which will appear below those specified in the aforementioned parameters. A list of styles to use for these lines can also be provided using the `line_styles` parameter. The list of styles will be evaluated in order and apply to the gloss line at the same index.
+
+#gloss(
+    header_text: [Russian],
+    source_text: ([Мы], [с], [Марко], [поехали], [автобусом], [в], [Переделкино]),
+    source_text_style: strong,
+    transliteration: ([My], [s], [Marko], [poexa-l-i], [avtobus-om], [v], [Peredelkino]),
+    morphemes: ([1#pl], [#com], [Marko], [go-#pst\-#pl], [bus-#ins], [#all], [Peredelkino]),
+    gloss_lines: (
+        ([we], [with], [Marko], [go-#pst\-#pl], [bus-by], [to], [Peredelkino]),([nous], [avec], [Marco], [allés], [en bus], [à], [Peredelkino]),
+        ([私たちは],[と], [マルコ], [行きました], [バスで], [に], [ペレデルキノ])
+    ),
+    line_styles: (
+        none,
+        text.with(style: "italic", fill: purple, font: "Noto Serif"),
+        text.with(font: "Noto Sans CJK JP", fill: red),
+    ),
+    translation: "Marko and I went to Peredelkino by bus",
+    translation_style: text.with(style: "italic", weight: "bold")
+)
+
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+[```typst
+#gloss(
+    header_text: [Russian],
+    source_text: ([Мы], [с], [Марко], [поехали], [автобусом], [в], [Переделкино]),
+    source_text_style: strong,
+    transliteration: ([My], [s], [Marko], [poexa-l-i], [avtobus-om], [v], [Peredelkino]),
+    morphemes: ([1#pl], [#com], [Marko], [go-#pst\-#pl], [bus-#ins], [#all], [Peredelkino]),
+    gloss_lines: (
+        ([we], [with], [Marko], [go-#pst\-#pl], [bus-by], [to], [Peredelkino]),
+        ([nous], [avec], [Marco], [allés], [en bus], [à], [Peredelkino]),
+        ([私たちは],[と], [マルコ], [行きました], [バスで], [に], [ペレデルキノ])
+    ),
+    line_styles: (
+        none,
+        text.with(style: "italic", fill: purple, font: "Noto Serif"),
+        text.with(font: "Noto Sans CJK JP", fill: red),
+    ),
+    translation: "Marko and I went to Peredelkino by bus",
+    translation_style: text.with(style: "italic", weight: "bold")
+)
+```
+])
+
+
+
+== Leipzig Glossing Rules PDF examples
+
+See https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf
+
+
+
 
 #numbered_gloss(
     header_text: [Lezgian (Haspelmath 1993:207)],

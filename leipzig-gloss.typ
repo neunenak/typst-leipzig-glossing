@@ -140,7 +140,12 @@
 
         if translation != none {
             v(pre_translation_space)
-            ["#translation"]
+            if translation_style != none{
+                translation_style(translation)
+            }
+            else {
+                translation
+            }
         }
     }
 
