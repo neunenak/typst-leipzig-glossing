@@ -8,17 +8,20 @@
 ) = {
     assert(gloss_line_lists.len() > 0, message: "Gloss line lists cannot be empty")
 
-    let line_len = if nlevel == true {
-        gloss_line_lists.len()
+    let item_list = if nlevel == true{
+        gloss_line_lists
     } else {
-        gloss_line_lists.at(0).len()
+        gloss_line_lists.at(0)
     }
-    
-    let n_lines = if nlevel == true {
-        gloss_line_lists.at(0).len()
+
+    let line_list = if nlevel == true {
+        gloss_line_lists.at(0)
     } else {
-        gloss_line_lists.len()
+        gloss_line_lists
     }
+
+    let line_len = item_list.len()
+    let n_lines = line_list.len()
 
     assert(formatters.len() == n_lines, message: "The number of formatters and the number of gloss lines should be equal")
 
@@ -26,7 +29,7 @@
         box(stack(dir: ttb, spacing: 0.5em, ..args))
     }
 
-    for item_idx in range(0, line_len) {
+    for (item_idx,_) in item_list.enumerate() {
         let args = ()
         for (line_idx, formatter) in formatters.enumerate() {
             let formatter_fn = if formatter == none {
@@ -46,7 +49,6 @@
                 item_idx
             }
             let item_group = gloss_line_lists.at(first_idx)
-
             let item = item_group.at(second_idx)
             args.push(formatter_fn(item))
         }
@@ -133,6 +135,7 @@
         }
         
         for gloss_group in gloss_lines {
+            assert(type(gloss_group)=="array", message: "gloss_lines must consist of nested lists")
             gloss_lists.push(gloss_group)
         }
 
