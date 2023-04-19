@@ -39,20 +39,34 @@ To number gloss examples, use `#numbered_gloss` in place of `gloss`:
     translation: "They are in Jakarta now",
 )
 
-The displayed number for numbered glosses is iterated for each numbered gloss that appears throughout the document. Unnumbered glosses are not factored into this.
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+  [```typst
+#numbered_gloss(
+    header_text: [Indonesian (Sneddon 1996:237)],
+    source_text: ([Mereka], [di], [Jakarta], [sekarang.]),
+    morphemes: ([they], [in], [Jakarta], [now]),
+    translation: "They are in Jakarta now",
+)
+```],
+)
+
+The displayed number for numbered glosses is iterated for each numbered gloss that appears throughout the document. Unnumbered glosses do not increment the counter for the numbered glosses:
 
 #gloss(
-    header_text: [Lezgian (Haspelmath 1993:207)],
-    source_text: ([Gila], [abur-u-n], [ferma], [hamišaluǧ], [güǧüna], [amuq’-da-č.]),
-    morphemes: ([now], [they-#obl\-#gen], [farm], [forever], [behind], [stay-#fut\-#neg]),
-    translation: "Now their farm will not stay behind forever.",
+    header_text: [Jaminjung (Schultze-Berndt 2000:92)],
+    source_text: ([nanggayan], [guny-bi-yarluga?]),
+    morphemes: ([who], [2#du.#A.3#sg.#P\-#fut\-poke]),
+    translation: "Who do you two want to spear?",
 )
 
 #numbered_gloss(
     header_text: [West Greenlandic (Fortescue 1984:127)],
     source_text: ([palasi=lu], [niuirtur=lu]),
     morphemes: ([priest=and], [shopkeeper=and]),
-    translation: "both the priest and the shopkeeper",
+    translation: ["both the priest and the shopkeeper"],
 )
 
 == Specifying text \& style for each line of a gloss
@@ -89,8 +103,40 @@ As seen above, the style for unaligned lines like `header_text` and `translation
 
 If one wishes to add more than three glossing lines, there is an additional parameter `gloss_lines` that can take a list of arbitrarily many more glossing lines, which will appear below those specified in the aforementioned parameters. A list of styles to use for these lines can also be provided using the `line_styles` parameter. The list of styles will be evaluated in order and apply to the gloss line at the same index.
 
-#gloss(
-    header_text: [Russian],
+#numbered_gloss(
+    header_text: [Lezgian (Haspelmath 1993:207)],
+    source_text: ([Gila], [abur-u-n], [ferma], [hamišaluǧ], [güǧüna], [amuq’-da-č.]),
+    morphemes: ([now], [they-#obl\-#gen], [farm], [forever], [behind], [stay-#fut\-#neg]),
+    gloss_lines: (
+        ([now],[their],[farm],[forever],[behind],[will stay]),
+    ),
+    line_styles: (text.with(fill:green),),
+    translation: "Now their farm will not stay behind forever.",
+)
+
+#block(
+  fill: luma(230),
+  inset: 8pt,
+  radius: 4pt,
+[```typst
+#numbered_gloss(
+    header_text: [Lezgian (Haspelmath 1993:207)],
+    source_text: ([Gila], [abur-u-n], [ferma], [hamišaluǧ], [güǧüna], [amuq’-da-č.]),
+    morphemes: ([now], [they-#obl\-#gen], [farm], [forever], [behind], [stay-#fut\-#neg]),
+    gloss_lines: (
+        ([now],[their],[farm],[forever],[behind],[will stay]),
+    ),
+    line_styles: (text.with(fill:green),),
+    translation: "Now their farm will not stay behind forever.",
+)
+```])
+
+#block(
+    breakable: false,
+stack(
+    dir:ttb,
+    spacing: 1em,
+    [#numbered_gloss(
     source_text: ([Мы], [с], [Марко], [поехали], [автобусом], [в], [Переделкино]),
     source_text_style: strong,
     transliteration: ([My], [s], [Marko], [poexa-l-i], [avtobus-om], [v], [Peredelkino]),
@@ -106,15 +152,13 @@ If one wishes to add more than three glossing lines, there is an additional para
     ),
     translation: "Marko and I went to Peredelkino by bus",
     translation_style: text.with(style: "italic", weight: "bold")
-)
-
-#block(
+    )],
+    block(
   fill: luma(230),
   inset: 8pt,
   radius: 4pt,
 [```typst
-#gloss(
-    header_text: [Russian],
+#numbered_gloss(
     source_text: ([Мы], [с], [Марко], [поехали], [автобусом], [в], [Переделкино]),
     source_text_style: strong,
     transliteration: ([My], [s], [Marko], [poexa-l-i], [avtobus-om], [v], [Peredelkino]),
@@ -134,43 +178,23 @@ If one wishes to add more than three glossing lines, there is an additional para
 )
 ```
 ])
+)
+)
 
+== Customizing spacing
 
+== N-level glossing: alternative syntax
 
 == Leipzig Glossing Rules PDF examples
 
 See https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf
 
 
-
-
-#numbered_gloss(
-    header_text: [Lezgian (Haspelmath 1993:207)],
-    source_text: ([Gila], [abur-u-n], [ferma], [hamišaluǧ], [güǧüna], [amuq’-da-č.]),
-    morphemes: ([now], [they-#obl\-#gen], [farm], [forever], [behind], [stay-#fut\-#neg]),
-    translation: "Now their farm will not stay behind forever.",
-)
-
-#numbered_gloss(
-    header_text: [West Greenlandic (Fortescue 1984:127)],
-    source_text: ([palasi=lu], [niuirtur=lu]),
-    morphemes: ([priest=and], [shopkeeper=and]),
-    translation: "both the priest and the shopkeeper",
-)
-
 #numbered_gloss(
     header_text: [Hakha Lai],
     source_text: ([a-nii -láay],),
     morphemes: ([3#sg\-laugh-#fut],),
     translation: [s/he will laugh],
-)
-
-#numbered_gloss(
-    header_text: [Russian],
-    source_text: ([My], [s], [Marko], [poexa-l-i], [avtobus-om], [v], [Peredelkino]),
-    morphemes: ([1#pl], [#com], [Marko], [go-#pst\-#pl], [bus-#ins], [#all], [Peredelkino]),
-    gloss_lines: (([we], [with], [Marko], [go-#pst\-#pl], [bus-by], [to], [Peredelkino]),),
-    translation: "Marko and I went to Perdelkino by bus",
 )
 
 #numbered_gloss(
@@ -208,9 +232,4 @@ See https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf
     translation: "They shall celebrate him on that date",
 )
 
-#numbered_gloss(
-    header_text: [Jaminjung (Schultze-Berndt 2000:92)],
-    source_text: ([nanggayan], [guny-bi-yarluga?]),
-    morphemes: ([who], [2#du.#A.3#sg.#P\-#fut\-poke]),
-    translation: "Who do you two want to spear?",
-)
+
