@@ -1,21 +1,36 @@
 #let gloss_count = counter("gloss_count")
 
-#let gloss_lines(spacing_between_items, formatters, gloss_line_lists) = {
+#let build_gloss(
+    interword_spacing,
+    gloss_line_spacing,
+    formatters,
+    gloss_line_lists,
+    nlevel
+) = {
     assert(gloss_line_lists.len() > 0, message: "Gloss line lists cannot be empty")
 
-    let len = gloss_line_lists.at(0).len()
-
-    for line in gloss_line_lists {
-        assert(line.len() == len)
+    let item_list = if nlevel == true{
+        gloss_line_lists
+    } else {
+        gloss_line_lists.at(0)
     }
 
-    assert(formatters.len() == gloss_line_lists.len(), message: "The number of formatters and the number of gloss line lists should be equal")
+    let line_list = if nlevel == true {
+        gloss_line_lists.at(0)
+    } else {
+        gloss_line_lists
+    }
+
+    let line_len = item_list.len()
+    let n_lines = line_list.len()
+
+    assert(formatters.len() == n_lines, message: "The number of formatters and the number of gloss lines should be equal")
 
     let make_item_box(..args) = {
-        box(stack(dir: ttb, spacing: 0.5em, ..args))
+        box(stack(dir: ttb, spacing: gloss_line_spacing, ..args))
     }
 
-    for item_index in range(0, len) {
+    for (item_idx,_) in item_list.enumerate() {
         let args = ()
         for (line_idx, formatter) in formatters.enumerate() {
             let formatter_fn = if formatter == none {
@@ -24,67 +39,129 @@
                 formatter
             }
 
-            let item = gloss_line_lists.at(line_idx).at(item_index)
+            let first_idx = if nlevel {
+                item_idx
+            } else {
+                line_idx
+            }
+            let second_idx =  if nlevel {
+                line_idx
+            } else {
+                item_idx
+            }
+            let item_group = gloss_line_lists.at(first_idx)
+            let item = item_group.at(second_idx)
             args.push(formatter_fn(item))
         }
         make_item_box(..args)
-        h(spacing_between_items)
+        if item_idx < line_len - 1 {
+            h(interword_spacing)
+        }
     }
 }
 
 
 #let gloss(
     header_text: none,
-    source_text: (),
+    header_text_style: none,
+    post_header_space: .5em,
+    source_text: none,
     source_text_style: emph,
     transliteration: none,
     transliteration_style: none,
-    morphemes: (),
+    morphemes: none,
     morphemes_style: none,
-    additional_gloss_lines: (), //List of list of content
+    gloss_lines: (), // List of lists of content,
+    line_styles: (),
     translation: none,
-    spacing_between_items: 1em,
+    translation_style: none,
+    pre_translation_space: .5em,
+    interword_spacing: 1em,
+    gloss_line_spacing: .5em,
+    left_padding: .5em,
+    gloss_padding: 2em,
     numbering: false,
+    nlevel: false,
+    breakable: false,
 ) = {
-
-    assert(type(source_text) == "array", message: "source_text needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
-    assert(type(morphemes) == "array", message: "morphemes needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
-
-    assert(source_text.len() == morphemes.len(), message: "source_text and morphemes have different lengths")
-
+    if source_text != none {
+        assert(type(source_text)=="array", message: "source_text needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
+    }
+    if morphemes != none {
+        assert(type(morphemes)=="array", message: "morphemes needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
+    }
     if transliteration != none {
-        assert(transliteration.len() == source_text.len(), message: "source_text and transliteration have different lengths")
+        assert(type(transliteration)=="array", message: "transliteration needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
     }
 
     let gloss_items = {
 
         if header_text != none {
-            header_text
-            linebreak()
+            if header_text_style != none{
+                header_text_style(header_text)
+            }
+            else {
+                header_text
+            }
+            if post_header_space != none {
+                v(post_header_space)
+            } else {
+                linebreak()
+            }
         }
 
-        let formatters = (source_text_style,)
-        let gloss_line_lists = (source_text,)
+        let formatters = ()
+        let gloss_lists = ()
 
+        if source_text != none {
+            assert(nlevel==false, message: "source_text parameter may not be used with nlevel glossing")
+            formatters.push(source_text_style)
+            gloss_lists.push(source_text)
+        }
         if transliteration != none {
+            assert(nlevel==false, message: "transliteration parameter may not be used with nlevel glossing")
             formatters.push(transliteration_style)
-            gloss_line_lists.push(transliteration)
+            gloss_lists.push(transliteration)
+        }
+        if morphemes != none {
+            assert(nlevel==false, message: "morphemes parameter may not be used with nlevel glossing")
+            formatters.push(morphemes_style)
+            gloss_lists.push(morphemes)
         }
 
-        formatters.push(morphemes_style)
-        gloss_line_lists.push(morphemes)
-
-        for additional in additional_gloss_lines {
-            formatters.push(none) //TODO fix this
-            gloss_line_lists.push(additional)
+        let n_lines = if nlevel {
+            gloss_lines.at(0).len()
+        } else {
+            gloss_lines.len()
+        }
+        let n_styles = line_styles.len()
+        for idx in range(0,n_lines) {
+            if idx < n_styles {
+                formatters.push(line_styles.at(idx))
+            } else {
+                formatters.push(none)
+            }
+        }
+        
+        for gloss_group in gloss_lines {
+            assert(type(gloss_group)=="array", message: "gloss_lines must consist of nested lists")
+            gloss_lists.push(gloss_group)
         }
 
-
-        gloss_lines(spacing_between_items, formatters, gloss_line_lists)
+        build_gloss(interword_spacing,gloss_line_spacing,formatters,gloss_lists,nlevel)
 
         if translation != none {
-            linebreak()
-            ["#translation"]
+            if pre_translation_space != none {
+                v(pre_translation_space)
+            } else {
+                linebreak()
+            }
+            if translation_style != none{
+                translation_style(translation)
+            }
+            else {
+                translation
+            }
         }
     }
 
@@ -98,7 +175,20 @@
         none
     }
 
-    [#gloss_number #pad(left: 1em)[#gloss_items]]
+    style(styles => {
+        block(breakable: breakable)[
+            #stack(
+            dir:ltr,
+            left_padding,
+            [#gloss_number],
+            gloss_padding - left_padding - measure([#gloss_number],styles).width,
+            [#gloss_items]
+            )
+        ]
+    }
+    )
 }
 
-#let numbered_gloss = gloss.with(numbering: true)
+#let numbered_gloss = gloss.with(numbering:true)
+
+#let nogloss = " "
