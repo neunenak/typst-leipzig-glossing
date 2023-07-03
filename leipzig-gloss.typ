@@ -1,6 +1,6 @@
 #let gloss_count = counter("gloss_count")
 
-#let gloss_lines(spacing_between_items, formatters, gloss_line_lists) = {
+#let build_gloss(spacing_between_items, formatters, gloss_line_lists) = {
     assert(gloss_line_lists.len() > 0, message: "Gloss line lists cannot be empty")
 
     let len = gloss_line_lists.at(0).len()
@@ -44,7 +44,10 @@
     additional_gloss_lines: (), //List of list of content
     translation: none,
     spacing_between_items: 1em,
+    gloss_padding: 2.0em, //TODO document these
+    left_padding: 0.5em,
     numbering: false,
+    breakable: false,
 ) = {
 
     assert(type(source_text) == "array", message: "source_text needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
@@ -80,7 +83,7 @@
         }
 
 
-        gloss_lines(spacing_between_items, formatters, gloss_line_lists)
+        build_gloss(spacing_between_items, formatters, gloss_line_lists)
 
         if translation != none {
             linebreak()
@@ -98,7 +101,20 @@
         none
     }
 
-    [#gloss_number #pad(left: 1em)[#gloss_items]]
+    //[#gloss_number #pad(left: 1em)[#gloss_items]]
+
+    style(styles => {
+        block(breakable: breakable)[
+            #stack(
+            dir:ltr, //TODO this needs to be more flexible
+            left_padding,
+            [#gloss_number],
+            gloss_padding - left_padding - measure([#gloss_number],styles).width,
+            [#gloss_items]
+            )
+        ]
+    }
+    )
 }
 
 #let numbered_gloss = gloss.with(numbering: true)
