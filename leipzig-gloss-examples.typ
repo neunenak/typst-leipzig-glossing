@@ -1,6 +1,9 @@
 #import "leipzig-gloss.typ": gloss, numbered_gloss
 #import "linguistic-abbreviations.typ": *
 
+#let codeblock(contents) = block(fill: luma(230), inset: 8pt, radius: 4pt, contents)
+
+
 = Introduction
 
 Interlinear morpheme-by-morpheme glosses are common in linguistic texts to give
@@ -51,8 +54,8 @@ Some more Georgian examples:
     translation: [The child burst out crying],
 )
 
+#codeblock[
 ```typst
-
 #gloss(
     header_text: [from "Georgian and the Unaccusative Hypothesis", Harris, 1982],
     source_text: ([ბავშვ-ი], [ატირდა]),
@@ -62,6 +65,7 @@ Some more Georgian examples:
     translation: [The child burst out crying],
 )
 ```
+]
 
 And an example in English:
 
@@ -72,14 +76,15 @@ And an example in English:
   translation: text(weight: "semibold")[I'm eating your head!],
 )
 
-```typst
+#codeblock(
+[```typst
 #gloss(
   source_text: ([I'm], [eat-ing], [your], [head]),
   morphemes: ([1#sg.#subj\=to.be], [eat-#prog], [2#sg.#pos], [head]),
   morphemes_style: text.with(fill: blue),
   translation: text(weight: "semibold")[I'm eating your head!],
 )
-```
+```])
 
 == Leipzig Glossing Rules PDF examples
 
