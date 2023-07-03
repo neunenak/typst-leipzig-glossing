@@ -30,7 +30,7 @@ parameters. For more information or to inform devs of a bug or other issue,
 visit the module's Github repository
 #link("https://github.com/neunenak/typst-leipzig-glossing")[neunenak/typst-leipzig-glossing].
 
-= Leipzig Glossing Examples
+= Some basic Examples
 
 The classic example of the inflected Georgian verb with an 8-segment
 consonant cluster:
@@ -42,6 +42,15 @@ consonant cluster:
     morphemes: ([1pl.#obj\-peel-#fmnt],),
     translation: "You peeled us",
 )
+#codeblock[
+```typst
+#gloss(
+    source_text: ([გვ-ფრცქვნ-ი],),
+    source_text_style: none,
+    transliteration: ([gv-prtskvn-i],),
+    morphemes: ([1pl.#obj\-peel-#fmnt],),
+    translation: "You peeled us",
+```])
 
 Some more Georgian examples:
 
