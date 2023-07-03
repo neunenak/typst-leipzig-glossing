@@ -1,6 +1,32 @@
 #import "leipzig-gloss.typ": gloss, numbered_gloss
 #import "linguistic-abbreviations.typ": *
 
+= Introduction
+
+Interlinear morpheme-by-morpheme glosses are common in linguistic texts to give
+information about the meanings of individual words and morphemes in the
+language being studied. A set of conventions called the *Leipzig Glossing Rules*
+was developed to give linguists a general set of standards and principles for
+how to format these glosses. The most recent version of these rules can be
+found in pdf form at
+#link("https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf")[this link],
+provided by the Department of Linguistics at the Max Planck Institute for
+Evolutionary Anthropology.
+
+There is a staggering variety of LaTex packages designed to properly align and
+format glosses (including `gb4e`, `ling-macros`, `linguex`, `expex`, and
+probably even more). These modules vary in the complexity of their syntax and
+the amount of control they give to the user of various aspects of formatting.
+The `typst-leipzig-glossing` module is designed to provide utilities for
+creating aligned Leipzig-style glosses in Typst, while keeping the syntax as
+intuitive as possible and allowing users as much control over how their glosses
+look as is feasible.
+
+This pdf will show examples of the module's functionality and detail relevant
+parameters. For more information or to inform devs of a bug or other issue,
+visit the module's Github repository
+#link("https://github.com/neunenak/typst-leipzig-glossing")[neunenak/typst-leipzig-glossing].
+
 = Leipzig Glossing Examples
 
 This is the classic example of the inflected Georgian verb with an 8-segment consonant cluster:
