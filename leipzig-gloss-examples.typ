@@ -86,6 +86,13 @@ And an example in English:
 )
 ```])
 
+The `#gloss` function has three pre-defined parameters for glossing levels:
+`source_text`, `transliteration`, and `morphemes`. It also has two parameters
+for unaligned text: `header_text` for text that precedes the gloss, and
+`translation` for text that follows the gloss.
+
+
+
 == Leipzig Glossing Rules PDF examples
 
 See #link("https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf")
