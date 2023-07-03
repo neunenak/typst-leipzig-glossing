@@ -29,7 +29,8 @@ visit the module's Github repository
 
 = Leipzig Glossing Examples
 
-This is the classic example of the inflected Georgian verb with an 8-segment consonant cluster:
+The classic example of the inflected Georgian verb with an 8-segment
+consonant cluster:
 
 #gloss(
     source_text: ([გვ-ფრცქვნ-ი],),
@@ -39,7 +40,7 @@ This is the classic example of the inflected Georgian verb with an 8-segment con
     translation: "You peeled us",
 )
 
-Some more Georgian:
+Some more Georgian examples:
 
 #gloss(
     header_text: [from "Georgian and the Unaccusative Hypothesis", Harris, 1982],
@@ -62,7 +63,7 @@ Some more Georgian:
 )
 ```
 
-And how about an example in English:
+And an example in English:
 
 #gloss(
   source_text: ([I'm], [eat-ing], [your], [head]),
@@ -82,7 +83,7 @@ And how about an example in English:
 
 == Leipzig Glossing Rules PDF examples
 
-See https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf
+See #link("https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf")
 
 
 #numbered_gloss(
