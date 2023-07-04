@@ -1,10 +1,13 @@
 # Leipzig Glossing in Typst
 
-[Typst](https://github.com/typst/typst) library for creating interlinear
-morpheme-by-morpheme glosses according to the [Leipzig glossing
-rules](https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf).
+`leipzig-glossing` is a [Typst](https://github.com/typst/typst) library for
+creating interlinear morpheme-by-morpheme glosses according to the [Leipzig
+glossing rules](https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf).
 
-Run `just build-example` to generate a pdf file with examples and documentation.
+Run `typst compile leipzig-gloss-examples.typ` in the root of the repository to
+generate a pdf file with examples and documentation. This command is also
+codified in the accompanying [justfile](https://github.com/casey/just) as `just
+build-example`.
 
 # License
 
