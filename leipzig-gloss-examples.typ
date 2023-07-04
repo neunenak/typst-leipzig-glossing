@@ -30,34 +30,15 @@ parameters. For more information or to inform devs of a bug or other issue,
 visit the module's Github repository
 #link("https://github.com/neunenak/typst-leipzig-glossing")[neunenak/typst-leipzig-glossing].
 
-= Some basic Examples
+= Basic glossing functionality
 
-The classic example of the inflected Georgian verb with an 8-segment
-consonant cluster:
 
-#gloss(
-    source_text: ([გვ-ფრცქვნ-ი],),
-    source_text_style: none,
-    transliteration: ([gv-prtskvn-i],),
-    morphemes: ([1pl.#obj\-peel-#fmnt],),
-    translation: "You peeled us",
-)
-#codeblock[
-```typst
-#gloss(
-    source_text: ([გვ-ფრცქვნ-ი],),
-    source_text_style: none,
-    transliteration: ([gv-prtskvn-i],),
-    morphemes: ([1pl.#obj\-peel-#fmnt],),
-    translation: "You peeled us",
-```])
+As a first example, here is a gloss of a text in Georgian, along with the Typst code used to generate it:
 
-Some more Georgian examples:
 
 #gloss(
-    header_text: [from "Georgian and the Unaccusative Hypothesis", Harris, 1982],
+    header_text: [from "Georgian and the Unaccusative Hypothesis", Alice Harris, 1982],
     source_text: ([ბავშვ-ი], [ატირდა]),
-    source_text_style: (item) => text(fill: red)[#item],
     transliteration: ([bavšv-i], [aṭirda]),
     morphemes: ([child-#smallcaps[nom]], [3S/cry/#smallcaps[incho]/II]),
     translation: [The child burst out crying],
@@ -66,9 +47,8 @@ Some more Georgian examples:
 #codeblock[
 ```typst
 #gloss(
-    header_text: [from "Georgian and the Unaccusative Hypothesis", Harris, 1982],
+    header_text: [from "Georgian and the Unaccusative Hypothesis", Alice Harris, 1982],
     source_text: ([ბავშვ-ი], [ატირდა]),
-    source_text_style: (item) => text(fill: red)[#item],
     transliteration: ([bavšv-i], [aṭirda]),
     morphemes: ([child-#smallcaps[nom]], [3S/cry/#smallcaps[incho]/II]),
     translation: [The child burst out crying],
@@ -76,10 +56,33 @@ Some more Georgian examples:
 ```
 ]
 
-And an example in English:
+/*
+#gloss(
+    source_text: ([გვ-ფრცქვნ-ი],),
+    source_text_style: none,
+    transliteration: ([gv-prtskvn-i],),
+    morphemes: ([1#pl.#obj\-peel-#fmnt],),
+    translation: "You peeled us",
+)
+
+#codeblock[
+```typst
+#import "linguistic-abbreviations.typ": *
+
+#gloss(
+    source_text: ([გვ-ფრცქვნ-ი],),
+    source_text_style: none,
+    transliteration: ([gv-prtskvn-i],),
+    morphemes: ([1#pl.#obj\-peel-#fmnt],),
+    translation: "You peeled us",
+```)]
+*/
+
+And an example for English that exhibits some additional styling:
 
 #gloss(
   source_text: ([I'm], [eat-ing], [your], [head]),
+  source_text_style: (item) => text(fill: red)[#item],
   morphemes: ([1#sg.#sbj\=to.be], [eat-#prog], [2#sg.#pos], [head]),
   morphemes_style: text.with(fill: blue),
   translation: text(weight: "semibold")[I'm eating your head!],
@@ -89,22 +92,44 @@ And an example in English:
 [```typst
 #gloss(
   source_text: ([I'm], [eat-ing], [your], [head]),
+  source_text_style: (item) => text(fill: red)[#item],
   morphemes: ([1#sg.#subj\=to.be], [eat-#prog], [2#sg.#pos], [head]),
   morphemes_style: text.with(fill: blue),
   translation: text(weight: "semibold")[I'm eating your head!],
 )
 ```])
 
+
 The `#gloss` function has three pre-defined parameters for glossing levels:
 `source_text`, `transliteration`, and `morphemes`. It also has two parameters
 for unaligned text: `header_text` for text that precedes the gloss, and
 `translation` for text that follows the gloss.
 
+If one wishes to add more than three glossing lines, there is an additional
+parameter `gloss_lines` that can take a list of arbitrarily many more glossing
+lines, which will appear below those specified in the aforementioned
+parameters:
+
+/*
+#gloss(
+    header_text: [Hunzib (van den Berg 1995:46)],
+    source_text: ([ождиг],[хо#super[н]хе],[мукъер]),
+    transliteration: ([oʒdig],[χõχe],[muqʼer]),
+    morphemes: ([ož-di-g],[xõxe],[m-uq'e-r]),
+    gloss_lines: (
+        ([boy-#smallcaps[obl]-#smallcaps[ad]], [tree(#smallcaps[g4])], [#smallcaps[g4]-bend-#smallcaps[pret]]),
+        ([at boy], [tree], [bent]),
+    ),
+    translation: ["Because of the boy, the tree bent."]
+)
+*/
 
 
-== Leipzig Glossing Rules PDF examples
 
-See #link("https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf")
+== Further Example Glosses
+
+These example glosses replicate the ones given in
+#link("https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf").
 
 
 #numbered_gloss(
