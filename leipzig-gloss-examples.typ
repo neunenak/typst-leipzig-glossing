@@ -70,8 +70,8 @@ for common glossing abbreviations:
   translation: text(weight: "semibold")[I'm eating your head!],
 )
 
-#codeblock(
-[```typst
+#codeblock[
+```typst
 #import "linguistic-abbreviations.typ": *
 
 #gloss(
@@ -81,7 +81,8 @@ for common glossing abbreviations:
   morphemes_style: text.with(fill: blue),
   translation: text(weight: "semibold")[I'm eating your head!],
 )
-```])
+```
+]
 
 
 The `#gloss` function has three pre-defined parameters for glossing levels:
@@ -106,8 +107,8 @@ parameters:
     translation: ["Because of the boy, the tree bent."]
 )
 
-#codeblock(
-[```typst
+#codeblock[
+```typst
 #gloss(
     header_text: [Hunzib (van den Berg 1995:46)],
     source_text: ([ождиг],[хо#super[н]хе],[мукъер]),
@@ -119,7 +120,8 @@ parameters:
     ),
     translation: ["Because of the boy, the tree bent."]
 )
-```])
+```
+]
 
 To number gloss examples, use `#numbered_gloss` in place of `gloss`. All other parameters remain the same.
 
@@ -151,6 +153,44 @@ The gloss count is controlled by the Typst counter variable `gloss_count`. This
 variable can be imported from the `leipzig-gloss` package and reset using the
 standard Typst counter functions to control gloss numbering.
 
+//TODO add examples here
+
+
+== Styling lines of a gloss
+
+Each of the aforementioned text parameters has a corresponding style parameter,
+formed by adding `_style` to its name: `header_text_style`, `source_text_style`,
+`transliteration_style`, `morphemes_style`, and `translation_style`. These parameters
+allow you to specify formatting that should be applied to each entire line of
+the gloss. This is particularly useful for the aligned gloss itself, since
+otherwise one would have to modify each content item in the list individually.
+
+In addition to these parameters, Typst’s usual content formatting can be applied
+to or within any given content block in the gloss. Formatting applied in this
+way will override any contradictory line-level formatting.
+
+#gloss(
+    header_text: [This text is about eating your head.],
+    header_text_style: text.with(weight: "bold", fill: green),
+    source_text: (text(fill:black)[I'm], [eat-ing], [your], [head]),
+    source_text_style: text.with(style: "italic", fill: red),
+    morphemes: ([1#sg.#sbj\=to.be], text(fill:black)[eat-#prog], [2#sg.#pos], [head]),
+    morphemes_style: text.with(fill: blue),
+    translation: text(weight: "bold")[I'm eating your head!],
+)
+#codeblock[
+```typst
+#gloss(
+    header_text: [This text is about eating your head.],
+    header_text_style: text.with(weight: "bold", fill: green),
+    source_text: (text(fill:black)[I'm], [eat-ing], [your], [head]),
+    source_text_style: text.with(style: "italic", fill: red),
+    morphemes: ([1#sg.#sbj\=to.be], text(fill:black)[eat-#prog], [2#sg.#pos], [head]),
+    morphemes_style: text.with(fill: blue),
+    translation: text(weight: "bold")[I'm eating your head!],
+)
+```
+]
 
 
 == Further Example Glosses

@@ -35,6 +35,7 @@
 
 #let gloss(
     header_text: none,
+    header_text_style: none,
     source_text: (),
     source_text_style: emph,
     transliteration: none,
@@ -43,6 +44,7 @@
     morphemes_style: none,
     additional_gloss_lines: (), //List of list of content
     translation: none,
+    translation_style: none,
     spacing_between_items: 1em,
     gloss_padding: 2.0em, //TODO document these
     left_padding: 0.5em,
@@ -62,7 +64,11 @@
     let gloss_items = {
 
         if header_text != none {
-            header_text
+            if header_text_style != none {
+                header_text_style(header_text)
+            } else {
+                header_text
+            }
             linebreak()
         }
 
@@ -87,7 +93,12 @@
 
         if translation != none {
             linebreak()
-            ["#translation"]
+
+            if translation_style == none {
+                ["#translation"]
+            } else {
+                translation_style(translation)
+            }
         }
     }
 
