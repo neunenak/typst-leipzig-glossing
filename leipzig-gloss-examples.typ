@@ -1,7 +1,10 @@
-#import "leipzig-gloss.typ": gloss, numbered_gloss
+#import "leipzig-gloss.typ": gloss, numbered_gloss, gloss_count
 #import "linguistic-abbreviations.typ": *
 
-#let codeblock(contents) = block(fill: luma(230), inset: 8pt, radius: 4pt, contents)
+#show link: x => underline[*#x*]
+//#show raw: x => text(fill: rgb("#43464b"))[#x]
+
+#let codeblock(contents) = block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, contents)
 
 
 = Introduction
@@ -11,7 +14,7 @@ information about the meanings of individual words and morphemes in the
 language being studied. A set of conventions called the *Leipzig Glossing Rules*
 was developed to give linguists a general set of standards and principles for
 how to format these glosses. The most recent version of these rules can be
-found in pdf form at
+found in PDF form at
 #link("https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf")[this link],
 provided by the Department of Linguistics at the Max Planck Institute for
 Evolutionary Anthropology.
@@ -25,7 +28,7 @@ creating aligned Leipzig-style glosses in Typst, while keeping the syntax as
 intuitive as possible and allowing users as much control over how their glosses
 look as is feasible.
 
-This pdf will show examples of the module's functionality and detail relevant
+This PDF will show examples of the module's functionality and detail relevant
 parameters. For more information or to inform devs of a bug or other issue,
 visit the module's Github repository
 #link("https://github.com/neunenak/typst-leipzig-glossing")[neunenak/typst-leipzig-glossing].
@@ -56,8 +59,71 @@ As a first example, here is a gloss of a text in Georgian, along with the Typst 
 ```
 ]
 
-/*
+And an example for English which exhibits some additional styling, and uses imports from another file
+for common glossing abbreviations:
+
 #gloss(
+  source_text: ([I'm], [eat-ing], [your], [head]),
+  source_text_style: (item) => text(fill: red)[#item],
+  morphemes: ([1#sg.#sbj\=to.be], [eat-#prog], [2#sg.#pos], [head]),
+  morphemes_style: text.with(fill: blue),
+  translation: text(weight: "semibold")[I'm eating your head!],
+)
+
+#codeblock(
+[```typst
+#import "linguistic-abbreviations.typ": *
+
+#gloss(
+  source_text: ([I'm], [eat-ing], [your], [head]),
+  source_text_style: (item) => text(fill: red)[#item],
+  morphemes: ([1#sg.#subj\=to.be], [eat-#prog], [2#sg.#pos], [head]),
+  morphemes_style: text.with(fill: blue),
+  translation: text(weight: "semibold")[I'm eating your head!],
+)
+```])
+
+
+The `#gloss` function has three pre-defined parameters for glossing levels:
+`source_text`, `transliteration`, and `morphemes`. It also has two parameters
+for unaligned text: `header_text` for text that precedes the gloss, and
+`translation` for text that follows the gloss.
+
+If one wishes to add more than three glossing lines, there is an additional
+parameter `additional_gloss_lines` that can take a list of arbitrarily many more glossing
+lines, which will appear below those specified in the aforementioned
+parameters:
+
+#gloss(
+    header_text: [Hunzib (van den Berg 1995:46)],
+    source_text: ([ождиг],[хо#super[н]хе],[мукъер]),
+    transliteration: ([oʒdig],[χõχe],[muqʼer]),
+    morphemes: ([ož-di-g],[xõxe],[m-uq'e-r]),
+    additional_gloss_lines: (
+        ([boy-#smallcaps[obl]-#smallcaps[ad]], [tree(#smallcaps[g4])], [#smallcaps[g4]-bend-#smallcaps[pret]]),
+        ([at boy], [tree], [bent]),
+    ),
+    translation: ["Because of the boy, the tree bent."]
+)
+
+#codeblock(
+[```typst
+#gloss(
+    header_text: [Hunzib (van den Berg 1995:46)],
+    source_text: ([ождиг],[хо#super[н]хе],[мукъер]),
+    transliteration: ([oʒdig],[χõχe],[muqʼer]),
+    morphemes: ([ož-di-g],[xõxe],[m-uq'e-r]),
+    additional_gloss_lines: (
+        ([boy-#smallcaps[obl]-#smallcaps[ad]], [tree(#smallcaps[g4])], [#smallcaps[g4]-bend-#smallcaps[pret]]),
+        ([at boy], [tree], [bent]),
+    ),
+    translation: ["Because of the boy, the tree bent."]
+)
+```])
+
+To number gloss examples, use `#numbered_gloss` in place of `gloss`. All other parameters remain the same.
+
+#numbered_gloss(
     source_text: ([გვ-ფრცქვნ-ი],),
     source_text_style: none,
     transliteration: ([gv-prtskvn-i],),
@@ -76,53 +142,14 @@ As a first example, here is a gloss of a text in Georgian, along with the Typst 
     morphemes: ([1#pl.#obj\-peel-#fmnt],),
     translation: "You peeled us",
 ```)]
-*/
 
-And an example for English that exhibits some additional styling:
+The displayed number for numbered glosses is iterated for each numbered gloss
+that appears throughout the document. Unnumbered glosses do not increment the
+counter for the numbered glosses.
 
-#gloss(
-  source_text: ([I'm], [eat-ing], [your], [head]),
-  source_text_style: (item) => text(fill: red)[#item],
-  morphemes: ([1#sg.#sbj\=to.be], [eat-#prog], [2#sg.#pos], [head]),
-  morphemes_style: text.with(fill: blue),
-  translation: text(weight: "semibold")[I'm eating your head!],
-)
-
-#codeblock(
-[```typst
-#gloss(
-  source_text: ([I'm], [eat-ing], [your], [head]),
-  source_text_style: (item) => text(fill: red)[#item],
-  morphemes: ([1#sg.#subj\=to.be], [eat-#prog], [2#sg.#pos], [head]),
-  morphemes_style: text.with(fill: blue),
-  translation: text(weight: "semibold")[I'm eating your head!],
-)
-```])
-
-
-The `#gloss` function has three pre-defined parameters for glossing levels:
-`source_text`, `transliteration`, and `morphemes`. It also has two parameters
-for unaligned text: `header_text` for text that precedes the gloss, and
-`translation` for text that follows the gloss.
-
-If one wishes to add more than three glossing lines, there is an additional
-parameter `gloss_lines` that can take a list of arbitrarily many more glossing
-lines, which will appear below those specified in the aforementioned
-parameters:
-
-/*
-#gloss(
-    header_text: [Hunzib (van den Berg 1995:46)],
-    source_text: ([ождиг],[хо#super[н]хе],[мукъер]),
-    transliteration: ([oʒdig],[χõχe],[muqʼer]),
-    morphemes: ([ož-di-g],[xõxe],[m-uq'e-r]),
-    gloss_lines: (
-        ([boy-#smallcaps[obl]-#smallcaps[ad]], [tree(#smallcaps[g4])], [#smallcaps[g4]-bend-#smallcaps[pret]]),
-        ([at boy], [tree], [bent]),
-    ),
-    translation: ["Because of the boy, the tree bent."]
-)
-*/
+The gloss count is controlled by the Typst counter variable `gloss_count`. This
+variable can be imported from the `leipzig-gloss` package and reset using the
+standard Typst counter functions to control gloss numbering.
 
 
 
@@ -131,6 +158,9 @@ parameters:
 These example glosses replicate the ones given in
 #link("https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf").
 
+#{
+    gloss_count.update(0)
+}
 
 #numbered_gloss(
     header_text: [Indonesian (Sneddon 1996:237)],
