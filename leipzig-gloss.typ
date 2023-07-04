@@ -94,14 +94,12 @@
     if numbering {
         gloss_count.step()
     }
-    
+
     let gloss_number = if numbering {
         [(#gloss_count.display())]
     } else {
         none
     }
-
-    //[#gloss_number #pad(left: 1em)[#gloss_items]]
 
     style(styles => {
         block(breakable: breakable)[
