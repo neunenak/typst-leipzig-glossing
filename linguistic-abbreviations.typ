@@ -1,13 +1,98 @@
+// See https://www.eva.mpg.de/lingua/resources/glossing-rules.php
+#let standard_abbreviations = (
+  "1": "first person",
+  "2": "second person",
+  "3": "third person",
+  "A": "agent-like argument of canonical transitive verb",
+  "ABL": "ablative",
+  "ABS": "absolutive",
+)
+
+#let used_fields = (
+  "1": false,
+  "2": false,
+  "3": false,
+  "A": false,
+  "ABL": false,
+  "ABS": false,
+)
+
+#let used_abbreviations = state("used-abbreviations", used_fields)
+#let print_usage_chart = {
+  locate(loc => {
+    let final_used_abbreviations = used_abbreviations.final(loc)
+    for (key, value) in final_used_abbreviations {
+      [#key was used: #value]
+      linebreak()
+    }
+
+    linebreak()
+    for (key, value) in final_used_abbreviations {
+      if value {
+        let desc = standard_abbreviations.at(key)
+        [#smallcaps(lower(key)) #h(2em) #desc]
+        linebreak()
+      }
+    }
+  })
+}
+
+
 #let fmnt = smallcaps([fmnt])
 
 
-/*
-Appendix: List of Standard Abbreviations
+//Appendix: List of Standard Abbreviations
 
-1 first person
-2 second person
-3 third person
-A agent-like argument of canonical transitive verb
+#let p1 = {
+  used_abbreviations.update(cur => {
+    cur.at("1") = true
+    cur
+  })
+  smallcaps[1]
+}
+
+#let p2 = {
+  used_abbreviations.update(cur => {
+    cur.at("2") = true
+    cur
+  })
+  smallcaps[2]
+}
+
+#let p3 = {
+  used_abbreviations.update(cur => {
+    cur.at("3") = true
+    cur
+  })
+  smallcaps[3]
+}
+
+#let A = {
+  used_abbreviations.update(cur => {
+    cur.at("A") = true
+    cur
+  })
+  smallcaps[A]
+}
+
+#let ABL = {
+  used_abbreviations.update(cur => {
+    cur.at("ABL") = true
+    cur
+  })
+  smallcaps[abl]
+}
+
+#let ABS = {
+  used_abbreviations.update(cur => {
+    cur.at("ABS") = true
+    cur
+  })
+  smallcaps[ABS]
+}
+
+
+/*
 ABL ablative
 ABS absolutive
 ACC accusative
@@ -21,7 +106,7 @@ ART article
 AUX auxiliary
 BEN benefactive
 */
-#let A = smallcaps([a])
+
 #let all = smallcaps([all])
 #let art = smallcaps([art])
 
