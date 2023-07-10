@@ -51,7 +51,7 @@
   "LOC": "locative",
   "M": "masculine",
   "N": "neuter",
-  "N-": "non- (e.g. NSG nonsingular, NPST nonpast)",
+  "N-": [non- (e.g. #smallcaps[nsg] nonsingular, #smallcaps[npst] nonpast)],
   "NEG": "negation, negative",
   "NMLZ": "nominalizer/nominalization",
   "NOM": "nominative",
@@ -180,8 +180,7 @@
 #let loc = emit_abbreviation("LOC")
 #let m = emit_abbreviation("M")
 #let n = emit_abbreviation("N")
-//TODO special handling?
-//#let n- = emit_abbreviation("N-")
+#let non = emit_abbreviation("N-")
 #let neg = emit_abbreviation("NEG")
 #let nmlz = emit_abbreviation("NMLZ")
 #let nom = emit_abbreviation("NOM")
