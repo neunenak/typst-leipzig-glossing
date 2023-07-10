@@ -65,7 +65,7 @@ for common glossing abbreviations:
 #gloss(
   source_text: ([I'm], [eat-ing], [your], [head]),
   source_text_style: (item) => text(fill: red)[#item],
-  morphemes: ([1#sg.#sbj\=to.be], [eat-#prog], [2#sg.#pos], [head]),
+  morphemes: ([1#sg.#sbj\=to.be], [eat-#prog], [2#sg.#poss], [head]),
   morphemes_style: text.with(fill: blue),
   translation: text(weight: "semibold")[I'm eating your head!],
 )
@@ -174,7 +174,7 @@ way will override any contradictory line-level formatting.
     header_text_style: text.with(weight: "bold", fill: green),
     source_text: (text(fill:black)[I'm], [eat-ing], [your], [head]),
     source_text_style: text.with(style: "italic", fill: red),
-    morphemes: ([1#sg.#sbj\=to.be], text(fill:black)[eat-#prog], [2#sg.#pos], [head]),
+    morphemes: ([1#sg.#sbj\=to.be], text(fill:black)[eat-#prog], [2#sg.#poss], [head]),
     morphemes_style: text.with(fill: blue),
     translation: text(weight: "bold")[I'm eating your head!],
 )
@@ -185,7 +185,7 @@ way will override any contradictory line-level formatting.
     header_text_style: text.with(weight: "bold", fill: green),
     source_text: (text(fill:black)[I'm], [eat-ing], [your], [head]),
     source_text_style: text.with(style: "italic", fill: red),
-    morphemes: ([1#sg.#sbj\=to.be], text(fill:black)[eat-#prog], [2#sg.#pos], [head]),
+    morphemes: ([1#sg.#sbj\=to.be], text(fill:black)[eat-#prog], [2#sg.#poss], [head]),
     morphemes_style: text.with(fill: blue),
     translation: text(weight: "bold")[I'm eating your head!],
 )
