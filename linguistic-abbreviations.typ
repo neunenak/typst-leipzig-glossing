@@ -6,18 +6,21 @@
   "A": "agent-like argument of canonical transitive verb",
   "ABL": "ablative",
   "ABS": "absolutive",
+  "ACC": "accusative",
 )
 
-#let used_fields = (
+#let used_abbreviations_table = (
   "1": false,
   "2": false,
   "3": false,
   "A": false,
   "ABL": false,
   "ABS": false,
+  "ACC": false,
 )
 
-#let used_abbreviations = state("used-abbreviations", used_fields)
+#let used_abbreviations = state("used-abbreviations", used_abbreviations_table)
+
 #let print_usage_chart = {
   locate(loc => {
     let final_used_abbreviations = used_abbreviations.final(loc)
@@ -43,53 +46,20 @@
 
 //Appendix: List of Standard Abbreviations
 
-#let p1 = {
+#let mark_used(symbol) = {
   used_abbreviations.update(cur => {
-    cur.at("1") = true
+    cur.at(symbol) = true
     cur
   })
-  smallcaps[1]
 }
 
-#let p2 = {
-  used_abbreviations.update(cur => {
-    cur.at("2") = true
-    cur
-  })
-  smallcaps[2]
-}
-
-#let p3 = {
-  used_abbreviations.update(cur => {
-    cur.at("3") = true
-    cur
-  })
-  smallcaps[3]
-}
-
-#let A = {
-  used_abbreviations.update(cur => {
-    cur.at("A") = true
-    cur
-  })
-  smallcaps[A]
-}
-
-#let ABL = {
-  used_abbreviations.update(cur => {
-    cur.at("ABL") = true
-    cur
-  })
-  smallcaps[abl]
-}
-
-#let ABS = {
-  used_abbreviations.update(cur => {
-    cur.at("ABS") = true
-    cur
-  })
-  smallcaps[ABS]
-}
+#let p1 = { mark_used("1"); smallcaps[1] }
+#let p2 = { mark_used("2"); smallcaps[2] }
+#let p3 = { mark_used("3"); smallcaps[3] }
+#let A = { mark_used("A"); smallcaps[a] }
+#let ABL = { mark_used("ABL"); smallcaps[abl] }
+#let ABS = { mark_used("ABS");smallcaps[abs] }
+#let ACC = { mark_used("ACC");smallcaps[acc] }
 
 
 /*
