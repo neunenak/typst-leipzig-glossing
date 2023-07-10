@@ -7,7 +7,7 @@
 
 == The meat of the paper
 
-The #p1 pronoun in English is "I".
+The #p1#sg pronoun in English is "I".
 
 The #p1 pronoun in Spanish is "yo"
 

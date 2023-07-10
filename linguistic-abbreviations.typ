@@ -92,16 +92,18 @@
 #let print_usage_chart = {
   locate(loc => {
     let final_used_abbreviations = used_abbreviations.final(loc)
+
+    //TODO this is debugging get rid of soon
     for (key, value) in final_used_abbreviations {
       [#key was used: #value]
       linebreak()
     }
 
     linebreak()
-    for (key, value) in final_used_abbreviations {
-      if value {
-        let desc = standard_abbreviations.at(key)
-        [#smallcaps(lower(key)) #h(2em) #desc]
+    //TODO requires standard_abbreviations to be sorted alphabetically, can this be enforced?
+    for (abbrv, explanation) in standard_abbreviations {
+      if abbrv in final_used_abbreviations {
+        [#smallcaps(lower(abbrv)) #h(2em) #explanation]
         linebreak()
       }
     }
