@@ -9,16 +9,7 @@
   "ACC": "accusative",
 )
 
-#let used_abbreviations_table = (
-  "1": false,
-  "2": false,
-  "3": false,
-  "A": false,
-  "ABL": false,
-  "ABS": false,
-  "ACC": false,
-)
-
+#let used_abbreviations_table = (:)
 #let used_abbreviations = state("used-abbreviations", used_abbreviations_table)
 
 #let print_usage_chart = {
@@ -48,7 +39,7 @@
 
 #let mark_used(symbol) = {
   used_abbreviations.update(cur => {
-    cur.at(symbol) = true
+    cur.insert(symbol, true)
     cur
   })
 }
