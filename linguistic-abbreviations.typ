@@ -1,5 +1,5 @@
 // See https://www.eva.mpg.de/lingua/resources/glossing-rules.php
-#let standard_abbreviations = (
+#let standard-abbreviations = (
   "1": "first person",
   "2": "second person",
   "3": "third person",
@@ -87,25 +87,25 @@
 )
 
 // A dictionary used as a set to mark which abbreviations have been used by a call to
-// `emit_abbreviation`. Each key in the dictionary is the string symbol of that abbreviation,
+// `emit-abbreviation`. Each key in the dictionary is the string symbol of that abbreviation,
 // and the value is always `true`.
-#let used_abbreviations = state("leipzig-gloss-used-abbreviations", (:))
+#let used-abbreviations = state("leipzig-gloss-used-abbreviations", (:))
 
-// Accepts a callback that accepts the state of the `used_abbreviations`
+// Accepts a callback that accepts the state of the `used-abbreviations`
 // dictionary at the end of the document. Also an additional debug parameter
-#let with_used_abbreviations(callback, debug: false) = {
+#let with-used-abbreviations(callback, debug: false) = {
 locate(loc => {
-    let final_used_abbreviations = used_abbreviations.final(loc)
+    let final_used-abbreviations = used-abbreviations.final(loc)
 
     if debug {
-      for (key, value) in final_used_abbreviations {
+      for (key, value) in final_used-abbreviations {
         [#key was used: #value]
         linebreak()
       }
       linebreak()
     }
 
-    callback(final_used_abbreviations)
+    callback(final_used-abbreviations)
 
   })
 
@@ -113,10 +113,10 @@ locate(loc => {
 
 // Public function. Given a symbol that is a string, emits
 // the lowercase version of that string in smallcaps format, and adds
-// its use to the `used_abbreviations` table
-#let emit_abbreviation(symbol) = {
+// its use to the `used-abbreviations` table
+#let emit-abbreviation(symbol) = {
   let mark_used(symbol) = {
-    used_abbreviations.update(cur => {
+    used-abbreviations.update(cur => {
       cur.insert(symbol, true)
       cur
     })
@@ -127,88 +127,88 @@ locate(loc => {
 }
 
 
-#let p1 = emit_abbreviation("1")
-#let p2 = emit_abbreviation("2")
-#let p3 = emit_abbreviation("3")
-#let A = emit_abbreviation("A")
-#let abl = emit_abbreviation("ABL")
-#let abs = emit_abbreviation("ABS")
-#let acc = emit_abbreviation("ACC")
-#let adj = emit_abbreviation("ADJ")
-#let adv = emit_abbreviation("ADV")
-#let agr = emit_abbreviation("AGR")
-#let all = emit_abbreviation("ALL")
-#let antip = emit_abbreviation("ANTIP")
-#let appl = emit_abbreviation("APPL")
-#let art = emit_abbreviation("ART")
-#let aux = emit_abbreviation("AUX")
-#let ben = emit_abbreviation("BEN")
-#let caus = emit_abbreviation("CAUS")
-#let clf = emit_abbreviation("CLF")
-#let com = emit_abbreviation("COM")
-#let comp = emit_abbreviation("COMP")
-#let compl = emit_abbreviation("COMPL")
-#let cond = emit_abbreviation("COND")
-#let cop = emit_abbreviation("COP")
-#let cvb = emit_abbreviation("CVB")
-#let dat = emit_abbreviation("DAT")
-#let decl = emit_abbreviation("DECL")
-#let def = emit_abbreviation("DEF")
-#let dem = emit_abbreviation("DEM")
-#let det = emit_abbreviation("DET")
-#let dist = emit_abbreviation("DIST")
-#let distr = emit_abbreviation("DISTR")
-#let du = emit_abbreviation("DU")
-#let dur = emit_abbreviation("DUR")
-#let erg = emit_abbreviation("ERG")
-#let excl = emit_abbreviation("EXCL")
-#let F = emit_abbreviation("F")
-#let foc = emit_abbreviation("FOC")
-#let fut = emit_abbreviation("FUT")
-#let gen = emit_abbreviation("GEN")
-#let imp = emit_abbreviation("IMP")
-#let incl = emit_abbreviation("INCL")
-#let ind = emit_abbreviation("IND")
-#let indf = emit_abbreviation("INDF")
-#let inf = emit_abbreviation("INF")
-#let ins = emit_abbreviation("INS")
-#let intr = emit_abbreviation("INTR")
-#let ipfv = emit_abbreviation("IPFV")
-#let irr = emit_abbreviation("IRR")
-#let loc = emit_abbreviation("LOC")
-#let M = emit_abbreviation("M")
-#let N = emit_abbreviation("N")
-#let non = emit_abbreviation("N-")
-#let neg = emit_abbreviation("NEG")
-#let nmlz = emit_abbreviation("NMLZ")
-#let nom = emit_abbreviation("NOM")
-#let obj = emit_abbreviation("OBJ")
-#let obl = emit_abbreviation("OBL")
-#let P = emit_abbreviation("P")
-#let pass = emit_abbreviation("PASS")
-#let pfv = emit_abbreviation("PFV")
-#let pl = emit_abbreviation("PL")
-#let poss = emit_abbreviation("POSS")
-#let pred = emit_abbreviation("PRED")
-#let prf = emit_abbreviation("PRF")
-#let prs = emit_abbreviation("PRS")
-#let prog = emit_abbreviation("PROG")
-#let proh = emit_abbreviation("PROH")
-#let prox = emit_abbreviation("PROX")
-#let pst = emit_abbreviation("PST")
-#let ptcp = emit_abbreviation("PTCP")
-#let purp = emit_abbreviation("PURP")
-#let Q = emit_abbreviation("Q")
-#let quot = emit_abbreviation("QUOT")
-#let recp = emit_abbreviation("RECP")
-#let refl = emit_abbreviation("REFL")
-#let rel = emit_abbreviation("REL")
-#let res = emit_abbreviation("RES")
-#let S = emit_abbreviation("S")
-#let sbj = emit_abbreviation("SBJ")
-#let sbjv = emit_abbreviation("SBJV")
-#let sg = emit_abbreviation("SG")
-#let top = emit_abbreviation("TOP")
-#let tr = emit_abbreviation("TR")
-#let voc = emit_abbreviation("VOC")
+#let p1 = emit-abbreviation("1")
+#let p2 = emit-abbreviation("2")
+#let p3 = emit-abbreviation("3")
+#let A = emit-abbreviation("A")
+#let abl = emit-abbreviation("ABL")
+#let abs = emit-abbreviation("ABS")
+#let acc = emit-abbreviation("ACC")
+#let adj = emit-abbreviation("ADJ")
+#let adv = emit-abbreviation("ADV")
+#let agr = emit-abbreviation("AGR")
+#let all = emit-abbreviation("ALL")
+#let antip = emit-abbreviation("ANTIP")
+#let appl = emit-abbreviation("APPL")
+#let art = emit-abbreviation("ART")
+#let aux = emit-abbreviation("AUX")
+#let ben = emit-abbreviation("BEN")
+#let caus = emit-abbreviation("CAUS")
+#let clf = emit-abbreviation("CLF")
+#let com = emit-abbreviation("COM")
+#let comp = emit-abbreviation("COMP")
+#let compl = emit-abbreviation("COMPL")
+#let cond = emit-abbreviation("COND")
+#let cop = emit-abbreviation("COP")
+#let cvb = emit-abbreviation("CVB")
+#let dat = emit-abbreviation("DAT")
+#let decl = emit-abbreviation("DECL")
+#let def = emit-abbreviation("DEF")
+#let dem = emit-abbreviation("DEM")
+#let det = emit-abbreviation("DET")
+#let dist = emit-abbreviation("DIST")
+#let distr = emit-abbreviation("DISTR")
+#let du = emit-abbreviation("DU")
+#let dur = emit-abbreviation("DUR")
+#let erg = emit-abbreviation("ERG")
+#let excl = emit-abbreviation("EXCL")
+#let F = emit-abbreviation("F")
+#let foc = emit-abbreviation("FOC")
+#let fut = emit-abbreviation("FUT")
+#let gen = emit-abbreviation("GEN")
+#let imp = emit-abbreviation("IMP")
+#let incl = emit-abbreviation("INCL")
+#let ind = emit-abbreviation("IND")
+#let indf = emit-abbreviation("INDF")
+#let inf = emit-abbreviation("INF")
+#let ins = emit-abbreviation("INS")
+#let intr = emit-abbreviation("INTR")
+#let ipfv = emit-abbreviation("IPFV")
+#let irr = emit-abbreviation("IRR")
+#let loc = emit-abbreviation("LOC")
+#let M = emit-abbreviation("M")
+#let N = emit-abbreviation("N")
+#let non = emit-abbreviation("N-")
+#let neg = emit-abbreviation("NEG")
+#let nmlz = emit-abbreviation("NMLZ")
+#let nom = emit-abbreviation("NOM")
+#let obj = emit-abbreviation("OBJ")
+#let obl = emit-abbreviation("OBL")
+#let P = emit-abbreviation("P")
+#let pass = emit-abbreviation("PASS")
+#let pfv = emit-abbreviation("PFV")
+#let pl = emit-abbreviation("PL")
+#let poss = emit-abbreviation("POSS")
+#let pred = emit-abbreviation("PRED")
+#let prf = emit-abbreviation("PRF")
+#let prs = emit-abbreviation("PRS")
+#let prog = emit-abbreviation("PROG")
+#let proh = emit-abbreviation("PROH")
+#let prox = emit-abbreviation("PROX")
+#let pst = emit-abbreviation("PST")
+#let ptcp = emit-abbreviation("PTCP")
+#let purp = emit-abbreviation("PURP")
+#let Q = emit-abbreviation("Q")
+#let quot = emit-abbreviation("QUOT")
+#let recp = emit-abbreviation("RECP")
+#let refl = emit-abbreviation("REFL")
+#let rel = emit-abbreviation("REL")
+#let res = emit-abbreviation("RES")
+#let S = emit-abbreviation("S")
+#let sbj = emit-abbreviation("SBJ")
+#let sbjv = emit-abbreviation("SBJV")
+#let sg = emit-abbreviation("SG")
+#let top = emit-abbreviation("TOP")
+#let tr = emit-abbreviation("TR")
+#let voc = emit-abbreviation("VOC")
 

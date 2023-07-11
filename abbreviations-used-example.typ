@@ -1,13 +1,13 @@
 #import "linguistic-abbreviations.typ": *
 
-#let custom_abbreviations = (
+#let custom-abbreviations = (
   "FMNT": "Present/Future stem formant",
 )
 
-#let fmnt = emit_abbreviation("FMNT")
+#let fmnt = emit-abbreviation("FMNT")
 
-// An example function that uses `with_used_abbreviations`
-#let print_usage_chart = with_used_abbreviations.with(debug: false)(final_used_abbreviations => {
+// An example function that uses `with-used-abbreviations`
+#let print_usage_chart = with-used-abbreviations.with(debug: false)(final-used-abbreviations => {
 
     show terms: t => {
       for t in t.children [
@@ -15,12 +15,12 @@
       ]
     }
 
-    let print_abbrevs(abbrv_list) = {
+    let print-abbrevs(abbrv_list) = {
       for abbrv in abbrv_list {
-        let explanation = if abbrv in standard_abbreviations {
-            standard_abbreviations.at(abbrv)
+        let explanation = if abbrv in standard-abbreviations {
+            standard-abbreviations.at(abbrv)
           } else {
-            custom_abbreviations.at(abbrv)
+            custom-abbreviations.at(abbrv)
           }
 
         terms((smallcaps(lower(abbrv)), explanation))
@@ -28,11 +28,11 @@
     }
   
     heading(level: 3)[Abbreviations in order of use]
-    print_abbrevs(final_used_abbreviations.keys())
+    print-abbrevs(final-used-abbreviations.keys())
 
     heading(level: 3)[Abbreviations in alphabetical order]
-    let sorted_abbreviations = final_used_abbreviations.keys().sorted()
-    print_abbrevs(sorted_abbreviations)
+    let sorted-abbreviations = final-used-abbreviations.keys().sorted()
+    print-abbrevs(sorted-abbreviations)
 })
 
 = Some linguistics paper
