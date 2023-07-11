@@ -113,17 +113,14 @@
 
 #let fmnt = smallcaps([fmnt])
 
-
-//Appendix: List of Standard Abbreviations
-
-#let mark_used(symbol) = {
-  used_abbreviations.update(cur => {
-    cur.insert(symbol, true)
-    cur
-  })
-}
-
 #let emit_abbreviation(symbol) = {
+  let mark_used(symbol) = {
+    used_abbreviations.update(cur => {
+      cur.insert(symbol, true)
+      cur
+    })
+  }
+
   mark_used(symbol)
   smallcaps(lower(symbol))
 }
