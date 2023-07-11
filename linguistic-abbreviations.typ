@@ -86,33 +86,34 @@
   "VOC": "vocative",
 )
 
+// A dictionary used as a set to mark which abbreviations have been used by a call to
+// `emit_abbreviation`. Each key in the dictionary is the string symbol of that abbreviation,
+// and the value is always `true`.
+#let used_abbreviations = state("leipzig-gloss-used-abbreviations", (:))
 
-#let used_abbreviations = state("used-abbreviations", (:))
-
-#let print_usage_chart = {
-  locate(loc => {
+// Accepts a callback that accepts the state of the `used_abbreviations`
+// dictionary at the end of the document. Also an additional debug parameter
+#let with_used_abbreviations(callback, debug: false) = {
+locate(loc => {
     let final_used_abbreviations = used_abbreviations.final(loc)
 
-    //TODO this is debugging get rid of soon
-    for (key, value) in final_used_abbreviations {
-      [#key was used: #value]
+    if debug {
+      for (key, value) in final_used_abbreviations {
+        [#key was used: #value]
+        linebreak()
+      }
       linebreak()
     }
 
-    linebreak()
-    //TODO requires standard_abbreviations to be sorted alphabetically, can this be enforced?
-    for (abbrv, explanation) in standard_abbreviations {
-      if abbrv in final_used_abbreviations {
-        [#smallcaps(lower(abbrv)) #h(2em) #explanation]
-        linebreak()
-      }
-    }
+    callback(final_used_abbreviations)
+
   })
+
 }
 
-
-#let fmnt = smallcaps([fmnt])
-
+// Public function. Given a symbol that is a string, emits
+// the lowercase version of that string in smallcaps format, and adds
+// its use to the `used_abbreviations` table
 #let emit_abbreviation(symbol) = {
   let mark_used(symbol) = {
     used_abbreviations.update(cur => {
@@ -161,7 +162,7 @@
 #let dur = emit_abbreviation("DUR")
 #let erg = emit_abbreviation("ERG")
 #let excl = emit_abbreviation("EXCL")
-#let f = emit_abbreviation("F")
+#let F = emit_abbreviation("F")
 #let foc = emit_abbreviation("FOC")
 #let fut = emit_abbreviation("FUT")
 #let gen = emit_abbreviation("GEN")
@@ -175,8 +176,8 @@
 #let ipfv = emit_abbreviation("IPFV")
 #let irr = emit_abbreviation("IRR")
 #let loc = emit_abbreviation("LOC")
-#let m = emit_abbreviation("M")
-#let n = emit_abbreviation("N")
+#let M = emit_abbreviation("M")
+#let N = emit_abbreviation("N")
 #let non = emit_abbreviation("N-")
 #let neg = emit_abbreviation("NEG")
 #let nmlz = emit_abbreviation("NMLZ")
@@ -197,13 +198,13 @@
 #let pst = emit_abbreviation("PST")
 #let ptcp = emit_abbreviation("PTCP")
 #let purp = emit_abbreviation("PURP")
-#let q = emit_abbreviation("Q")
+#let Q = emit_abbreviation("Q")
 #let quot = emit_abbreviation("QUOT")
 #let recp = emit_abbreviation("RECP")
 #let refl = emit_abbreviation("REFL")
 #let rel = emit_abbreviation("REL")
 #let res = emit_abbreviation("RES")
-#let s = emit_abbreviation("S")
+#let S = emit_abbreviation("S")
 #let sbj = emit_abbreviation("SBJ")
 #let sbjv = emit_abbreviation("SBJV")
 #let sg = emit_abbreviation("SG")
