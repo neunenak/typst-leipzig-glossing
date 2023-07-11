@@ -9,6 +9,12 @@
 // An example function that uses `with_used_abbreviations`
 #let print_usage_chart = with_used_abbreviations.with(debug: false)(final_used_abbreviations => {
 
+    show terms: t => {
+      for t in t.children [
+      #t.term #h(2cm) #t.description\
+      ]
+    }
+
     let print_abbrevs(abbrv_list) = {
       for abbrv in abbrv_list {
         let explanation = if abbrv in standard_abbreviations {
@@ -17,8 +23,7 @@
             custom_abbreviations.at(abbrv)
           }
 
-        [#smallcaps(lower(abbrv)) #h(2em) #explanation]
-        linebreak()
+        terms((smallcaps(lower(abbrv)), explanation))
       }
     }
   
