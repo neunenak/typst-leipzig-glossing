@@ -6,6 +6,8 @@
 
 #let codeblock(contents) = block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, contents)
 
+#let fmnt = emit-abbreviation("FMNT")
+
 
 = Introduction
 
