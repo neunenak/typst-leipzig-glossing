@@ -40,7 +40,7 @@
     source_text_style: emph,
     transliteration: none,
     transliteration_style: none,
-    morphemes: (),
+    morphemes: none,
     morphemes_style: none,
     additional_gloss_lines: (), //List of list of content
     translation: none,
@@ -53,9 +53,11 @@
 ) = {
 
     assert(type(source_text) == "array", message: "source_text needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
-    assert(type(morphemes) == "array", message: "morphemes needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
 
-    assert(source_text.len() == morphemes.len(), message: "source_text and morphemes have different lengths")
+    if morphemes != none {
+        assert(type(morphemes) == "array", message: "morphemes needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
+        assert(source_text.len() == morphemes.len(), message: "source_text and morphemes have different lengths")
+    }
 
     if transliteration != none {
         assert(transliteration.len() == source_text.len(), message: "source_text and transliteration have different lengths")
@@ -80,8 +82,10 @@
             gloss_line_lists.push(transliteration)
         }
 
-        formatters.push(morphemes_style)
-        gloss_line_lists.push(morphemes)
+        if morphemes != none {
+            formatters.push(morphemes_style)
+            gloss_line_lists.push(morphemes)
+        }
 
         for additional in additional_gloss_lines {
             formatters.push(none) //TODO fix this

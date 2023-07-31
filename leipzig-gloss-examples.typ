@@ -92,6 +92,28 @@ The `#gloss` function has three pre-defined parameters for glossing levels:
 for unaligned text: `header_text` for text that precedes the gloss, and
 `translation` for text that follows the gloss.
 
+
+The `morphemes` param can be skipped, if you just want to provide a source
+text and translation, without a gloss:
+
+#gloss(
+    source_text: ([Trato de entender, debo comprender qué es lo que ha hecho conmigo],),
+    translation: [I try to understand, I should comprehend, what it has done with me],
+)
+
+#codeblock[
+```typst
+#gloss(
+    source_text: ([Trato de entender, debo comprender qué es lo que ha hecho conmigo],),
+    translation: [I try to understand, I should comprehend, what it has done with me],
+)
+```
+]
+
+Note that it is still necessary to wrap the `source_text` argument in an array of length one.
+
+
+
 If one wishes to add more than three glossing lines, there is an additional
 parameter `additional_gloss_lines` that can take a list of arbitrarily many more glossing
 lines, which will appear below those specified in the aforementioned
