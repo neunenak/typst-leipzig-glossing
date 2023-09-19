@@ -1,4 +1,4 @@
-#import "leipzig-gloss.typ": gloss, numbered_gloss, gloss_count
+#import "leipzig-gloss.typ": gloss, numbered-gloss, gloss_count
 #import "linguistic-abbreviations.typ": *
 
 #show link: x => underline[*#x*]
@@ -7,7 +7,7 @@
 #let codeblock-old(contents) = block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, contents)
 
 #let codeblock(contents, addl-bindings: (:)) = {
-    eval(contents, mode: "markup", scope: (gloss: gloss, numbered_gloss: numbered_gloss) + addl-bindings)
+    eval(contents, mode: "markup", scope: (gloss: gloss, numbered-gloss: numbered-gloss) + addl-bindings)
     block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, raw(contents, lang: "typst"))
 }
 
@@ -109,15 +109,35 @@ parameters:
 )
 ")
 
-To number gloss examples, use `#numbered_gloss` in place of `gloss`. All other parameters remain the same.
 
-#codeblock("#numbered_gloss(
+
+== Numbering Glosses
+
+The `gloss` function takes a boolean parameter `numbering` which will add an incrementing
+count to each gloss. A function `numbered-gloss` is exported for convenience; this is
+defined as simply `#let numbered-gloss = gloss.with(numbering: true)`, and is called with the
+same arguments as `gloss`:
+
+
+#codeblock(
+"#gloss(
     source_text: ([გვ-ფრცქვნ-ი],),
     source_text_style: none,
     transliteration: ([gv-prtskvn-i],),
     morphemes: ([1#pl.#obj\-peel-#fmnt],),
     translation: \"You peeled us\",
-)", addl-bindings: (pl: pl, obj: obj, fmnt: fmnt))
+    numbering: true,
+)
+
+#numbered-gloss(
+    source_text: ([მ-ფრცქვნ-ი],),
+    source_text_style: none,
+    transliteration: ([m-prtskvn-i],),
+    morphemes: ([1#sg.#obj\-peel-#fmnt],),
+    translation: \"You peeled me\",
+)
+
+", addl-bindings: (pl: pl, obj: obj, sg: sg, fmnt: fmnt))
 
 The displayed number for numbered glosses is iterated for each numbered gloss
 that appears throughout the document. Unnumbered glosses do not increment the
@@ -157,7 +177,7 @@ way will override any contradictory line-level formatting.
 //TODO add `line_styles` param
 
 
-== Further Example Glosses
+= Further Example Glosses
 
 These are the first twelve example glosses given in #link("https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf").
 along with the Typst markup needed to generate them:
@@ -167,7 +187,7 @@ along with the Typst markup needed to generate them:
 }
 
 #codeblock(
-"#numbered_gloss(
+"#numbered-gloss(
     header_text: [Indonesian (Sneddon 1996:237)],
     source_text: ([Mereka], [di], [Jakarta], [sekarang.]),
     morphemes: ([they], [in], [Jakarta], [now]),
@@ -175,7 +195,7 @@ along with the Typst markup needed to generate them:
 )")
 
 #codeblock(
-"#numbered_gloss(
+"#numbered-gloss(
     header_text: [Lezgian (Haspelmath 1993:207)],
     source_text: ([Gila], [abur-u-n], [ferma], [hamišaluǧ], [güǧüna], [amuq’-da-č.]),
     morphemes: ([now], [they-#obl\-#gen], [farm], [forever], [behind], [stay-#fut\-#neg]),
@@ -183,7 +203,7 @@ along with the Typst markup needed to generate them:
 )", addl-bindings: (fut: fut, neg: neg, obl: obl, gen:gen))
 
 #codeblock(
-"#numbered_gloss(
+"#numbered-gloss(
     header_text: [West Greenlandic (Fortescue 1984:127)],
     source_text: ([palasi=lu], [niuirtur=lu]),
     morphemes: ([priest=and], [shopkeeper=and]),
@@ -191,7 +211,7 @@ along with the Typst markup needed to generate them:
 )")
 
 #codeblock(
-"#numbered_gloss(
+"#numbered-gloss(
     header_text: [Hakha Lai],
     source_text: ([a-nii -láay],),
     morphemes: ([3#sg\-laugh-#fut],),
@@ -199,7 +219,7 @@ along with the Typst markup needed to generate them:
 )", addl-bindings: (sg: sg, fut: fut))
 
 #codeblock(
-"#numbered_gloss(
+"#numbered-gloss(
     header_text: [Russian],
     source_text: ([My], [s], [Marko], [poexa-l-i], [avtobus-om], [v], [Peredelkino]),
     morphemes: ([1#pl], [#com], [Marko], [go-#pst\-#pl], [bus-#ins], [#all], [Peredelkino]),
@@ -208,7 +228,7 @@ along with the Typst markup needed to generate them:
 )", addl-bindings: (com: com, pl: pl, ins: ins, all: all, pst:pst))
 
 #codeblock(
-"#numbered_gloss(
+"#numbered-gloss(
     header_text: [Turkish],
     source_text: ([çık-mak],),
     morphemes: ([come.out-#inf],),
@@ -216,7 +236,7 @@ along with the Typst markup needed to generate them:
 )", addl-bindings: (inf: inf))
 
 #codeblock(
-"#numbered_gloss(
+"#numbered-gloss(
     header_text: [Latin],
     source_text: ([insul-arum],),
     morphemes: ([island-#gen\-#pl],),
@@ -224,7 +244,7 @@ along with the Typst markup needed to generate them:
 )", addl-bindings: (gen:gen, pl: pl))
 
 #codeblock(
-"#numbered_gloss(
+"#numbered-gloss(
     header_text: [French],
     source_text: ([aux], [chevaux]),
     morphemes: ([to-#art\-#pl],[horse.#pl]),
@@ -232,7 +252,7 @@ along with the Typst markup needed to generate them:
 )",addl-bindings: (art:art, pl:pl))
 
 #codeblock(
-"#numbered_gloss(
+"#numbered-gloss(
     header_text: [German],
     source_text: ([unser-n], [Väter-n]),
     morphemes: ([our-#dat\-#pl],[father.#pl\-#dat.#pl]),
@@ -240,7 +260,7 @@ along with the Typst markup needed to generate them:
 )", addl-bindings: (dat:dat, pl:pl))
 
 #codeblock(
-"#numbered_gloss(
+"#numbered-gloss(
     header_text: [Hittite (Lehmann 1982:211)],
     source_text: ([n=an], [apedani], [mehuni],[essandu.]),
     morphemes: ([#smallcaps[conn]=him], [that.#dat.#sg], [time.#dat.#sg], [eat.they.shall]),
@@ -248,7 +268,7 @@ along with the Typst markup needed to generate them:
 )", addl-bindings: (pl:pl, sg:sg, dat:dat))
 
 #codeblock(
-"#numbered_gloss(
+"#numbered-gloss(
     header_text: [Jaminjung (Schultze-Berndt 2000:92)],
     source_text: ([nanggayan], [guny-bi-yarluga?]),
     morphemes: ([who], [2#du.#A.3#sg.#P\-#fut\-poke]),

@@ -130,4 +130,4 @@
     )
 }
 
-#let numbered_gloss = gloss.with(numbering: true)
+#let numbered-gloss = gloss.with(numbering: true)
