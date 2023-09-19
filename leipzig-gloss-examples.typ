@@ -148,8 +148,7 @@ variable can be imported from the `leipzig-gloss` package and manipulated using 
 standard Typst counter functions to control gloss numbering:
 
 #codeblock(
-"
-#gloss-count.update(20)
+"#gloss-count.update(20)
 
 #numbered-gloss(
     header_text: [from _Standard Basque: A Progressive Grammar_ by Rudolf de Rijk],
