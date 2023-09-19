@@ -2,7 +2,7 @@
 
 #let gloss-count = counter("gloss_count")
 
-#let build_gloss(spacing_between_items, formatters, gloss_line_lists) = {
+#let build_gloss(item-spacing, formatters, gloss_line_lists) = {
     assert(gloss_line_lists.len() > 0, message: "Gloss line lists cannot be empty")
 
     let len = gloss_line_lists.at(0).len()
@@ -30,80 +30,80 @@
             args.push(formatter_fn(item))
         }
         make_item_box(..args)
-        h(spacing_between_items)
+        h(item-spacing)
     }
 }
 
 
 #let gloss(
-    header_text: none,
-    header_text_style: none,
-    source_text: (),
-    source_text_style: emph,
+    header: none,
+    header-style: none,
+    source: (),
+    source-style: emph,
     transliteration: none,
-    transliteration_style: none,
+    transliteration-style: none,
     morphemes: none,
-    morphemes_style: none,
-    additional_gloss_lines: (), //List of list of content
+    morphemes-style: none,
+    additional-lines: (), //List of list of content
     translation: none,
-    translation_style: none,
-    spacing_between_items: 1em,
-    gloss_padding: 2.0em, //TODO document these
+    translation-style: none,
+    item-spacing: 1em,
+    gloss-padding: 2.0em, //TODO document these
     left_padding: 0.5em,
     numbering: false,
     breakable: false,
 ) = {
 
-    assert(type(source_text) == "array", message: "source_text needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
+    assert(type(source) == "array", message: "source needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
 
     if morphemes != none {
         assert(type(morphemes) == "array", message: "morphemes needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
-        assert(source_text.len() == morphemes.len(), message: "source_text and morphemes have different lengths")
+        assert(source.len() == morphemes.len(), message: "source and morphemes have different lengths")
     }
 
     if transliteration != none {
-        assert(transliteration.len() == source_text.len(), message: "source_text and transliteration have different lengths")
+        assert(transliteration.len() == source.len(), message: "source and transliteration have different lengths")
     }
 
     let gloss_items = {
 
-        if header_text != none {
-            if header_text_style != none {
-                header_text_style(header_text)
+        if header != none {
+            if header-style != none {
+                header-style(header)
             } else {
-                header_text
+                header
             }
             linebreak()
         }
 
-        let formatters = (source_text_style,)
-        let gloss_line_lists = (source_text,)
+        let formatters = (source-style,)
+        let gloss_line_lists = (source,)
 
         if transliteration != none {
-            formatters.push(transliteration_style)
+            formatters.push(transliteration-style)
             gloss_line_lists.push(transliteration)
         }
 
         if morphemes != none {
-            formatters.push(morphemes_style)
+            formatters.push(morphemes-style)
             gloss_line_lists.push(morphemes)
         }
 
-        for additional in additional_gloss_lines {
+        for additional in additional-lines {
             formatters.push(none) //TODO fix this
             gloss_line_lists.push(additional)
         }
 
 
-        build_gloss(spacing_between_items, formatters, gloss_line_lists)
+        build_gloss(item-spacing, formatters, gloss_line_lists)
 
         if translation != none {
             linebreak()
 
-            if translation_style == none {
+            if translation-style == none {
                 ["#translation"]
             } else {
-                translation_style(translation)
+                translation-style(translation)
             }
         }
     }
@@ -124,7 +124,7 @@
             dir:ltr, //TODO this needs to be more flexible
             left_padding,
             [#gloss_number],
-            gloss_padding - left_padding - measure([#gloss_number],styles).width,
+            gloss-padding - left_padding - measure([#gloss_number],styles).width,
             [#gloss_items]
             )
         ]
