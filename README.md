@@ -9,8 +9,8 @@ generate a pdf file with examples and documentation. This command is also
 codified in the accompanying [justfile](https://github.com/casey/just) as `just
 build-example`.
 
-The definitions intended for use by end users are the `#gloss` and
-`#numbered_gloss` functions.
+The definitions intended for use by end users are the `gloss` and
+`numbered-gloss` functions, and the `abbreviations` submodule.
 
 
 # Contributing
