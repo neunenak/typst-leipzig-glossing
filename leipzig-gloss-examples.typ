@@ -4,10 +4,10 @@
 #show link: x => underline[*#x*]
 //#show raw: x => text(fill: rgb("#43464b"))[#x]
 
-#let codeblock(contents) = block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, contents)
+#let codeblock-old(contents) = block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, contents)
 
-#let codeblock2(contents) = {
-    eval(contents, mode: "markup", scope: (gloss: gloss))
+#let codeblock(contents, addl-bindings: (:)) = {
+    eval(contents, mode: "markup", scope: (gloss: gloss) + addl-bindings)
     block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, raw(contents, lang: "typst"))
 }
 
@@ -46,7 +46,7 @@ visit the module's Github repository
 As a first example, here is a gloss of a text in Georgian, along with the Typst code used to generate it:
 
 
-#codeblock2(
+#codeblock(
 "#gloss(
     header_text: [from \"Georgian and the Unaccusative Hypothesis\", Alice Harris, 1982],
     source_text: ([ბავშვ-ი], [ატირდა]),
@@ -59,27 +59,15 @@ As a first example, here is a gloss of a text in Georgian, along with the Typst 
 And an example for English which exhibits some additional styling, and uses imports from another file
 for common glossing abbreviations:
 
-#gloss(
+#codeblock(
+"#gloss(
   source_text: ([I'm], [eat-ing], [your], [head]),
   source_text_style: (item) => text(fill: red)[#item],
   morphemes: ([1#sg.#sbj\=to.be], [eat-#prog], [2#sg.#poss], [head]),
   morphemes_style: text.with(fill: blue),
-  translation: text(weight: "semibold")[I'm eating your head!],
+  translation: text(weight: \"semibold\")[I'm eating your head!],
 )
-
-#codeblock[
-```typst
-#import "linguistic-abbreviations.typ": *
-
-#gloss(
-  source_text: ([I'm], [eat-ing], [your], [head]),
-  source_text_style: (item) => text(fill: red)[#item],
-  morphemes: ([1#sg.#subj\=to.be], [eat-#prog], [2#sg.#pos], [head]),
-  morphemes_style: text.with(fill: blue),
-  translation: text(weight: "semibold")[I'm eating your head!],
-)
-```
-]
+", addl-bindings: (poss: poss, prog: prog, sg: sg, sbj: sbj))
 
 
 The `#gloss` function has three pre-defined parameters for glossing levels:
@@ -91,30 +79,24 @@ for unaligned text: `header_text` for text that precedes the gloss, and
 The `morphemes` param can be skipped, if you just want to provide a source
 text and translation, without a gloss:
 
-#gloss(
-    source_text: ([Trato de entender, debo comprender qué es lo que ha hecho conmigo],),
-    translation: [I try to understand, I should comprehend, what it has done with me],
+#codeblock(
+"#gloss(
+    source_text: ([Trato de entender, debo comprender, qué es lo que ha hecho conmigo],),
+    translation: [I try to understand, I must comprehend, what she has done with me],
 )
+")
 
-#codeblock[
-```typst
-#gloss(
-    source_text: ([Trato de entender, debo comprender qué es lo que ha hecho conmigo],),
-    translation: [I try to understand, I should comprehend, what it has done with me],
-)
-```
-]
 
 Note that it is still necessary to wrap the `source_text` argument in an array of length one.
 
 
-
-If one wishes to add more than three glossing lines, there is an additional
-parameter `additional_gloss_lines` that can take a list of arbitrarily many more glossing
+To add more than three glossing lines, there is an additional parameter
+`additional_gloss_lines` that can take a list of arbitrarily many more glossing
 lines, which will appear below those specified in the aforementioned
 parameters:
 
-#gloss(
+#codeblock(
+"#gloss(
     header_text: [Hunzib (van den Berg 1995:46)],
     source_text: ([ождиг],[хо#super[н]хе],[мукъер]),
     transliteration: ([oʒdig],[χõχe],[muqʼer]),
@@ -123,46 +105,19 @@ parameters:
         ([boy-#smallcaps[obl]-#smallcaps[ad]], [tree(#smallcaps[g4])], [#smallcaps[g4]-bend-#smallcaps[pret]]),
         ([at boy], [tree], [bent]),
     ),
-    translation: ["Because of the boy, the tree bent."]
+    translation: [\"Because of the boy, the tree bent.\"]
 )
-
-#codeblock[
-```typst
-#gloss(
-    header_text: [Hunzib (van den Berg 1995:46)],
-    source_text: ([ождиг],[хо#super[н]хе],[мукъер]),
-    transliteration: ([oʒdig],[χõχe],[muqʼer]),
-    morphemes: ([ož-di-g],[xõxe],[m-uq'e-r]),
-    additional_gloss_lines: (
-        ([boy-#smallcaps[obl]-#smallcaps[ad]], [tree(#smallcaps[g4])], [#smallcaps[g4]-bend-#smallcaps[pret]]),
-        ([at boy], [tree], [bent]),
-    ),
-    translation: ["Because of the boy, the tree bent."]
-)
-```
-]
+")
 
 To number gloss examples, use `#numbered_gloss` in place of `gloss`. All other parameters remain the same.
 
-#numbered_gloss(
+#codeblock("#numbered_gloss(
     source_text: ([გვ-ფრცქვნ-ი],),
     source_text_style: none,
     transliteration: ([gv-prtskvn-i],),
     morphemes: ([1#pl.#obj\-peel-#fmnt],),
-    translation: "You peeled us",
-)
-
-#codeblock[
-```typst
-#import "linguistic-abbreviations.typ": *
-
-#gloss(
-    source_text: ([გვ-ფრცქვნ-ი],),
-    source_text_style: none,
-    transliteration: ([gv-prtskvn-i],),
-    morphemes: ([1#pl.#obj\-peel-#fmnt],),
-    translation: "You peeled us",
-```)]
+    translation: \"You peeled us\",
+)", addl-bindings: (numbered_gloss: numbered_gloss, pl: pl, obj: obj, fmnt: fmnt))
 
 The displayed number for numbered glosses is iterated for each numbered gloss
 that appears throughout the document. Unnumbered glosses do not increment the
@@ -188,35 +143,24 @@ In addition to these parameters, Typst’s usual content formatting can be appli
 to or within any given content block in the gloss. Formatting applied in this
 way will override any contradictory line-level formatting.
 
-#gloss(
+#codeblock(
+"#gloss(
     header_text: [This text is about eating your head.],
-    header_text_style: text.with(weight: "bold", fill: green),
+    header_text_style: text.with(weight: \"bold\", fill: green),
     source_text: (text(fill:black)[I'm], [eat-ing], [your], [head]),
-    source_text_style: text.with(style: "italic", fill: red),
+    source_text_style: text.with(style: \"italic\", fill: red),
     morphemes: ([1#sg.#sbj\=to.be], text(fill:black)[eat-#prog], [2#sg.#poss], [head]),
     morphemes_style: text.with(fill: blue),
-    translation: text(weight: "bold")[I'm eating your head!],
-)
-#codeblock[
-```typst
-#gloss(
-    header_text: [This text is about eating your head.],
-    header_text_style: text.with(weight: "bold", fill: green),
-    source_text: (text(fill:black)[I'm], [eat-ing], [your], [head]),
-    source_text_style: text.with(style: "italic", fill: red),
-    morphemes: ([1#sg.#sbj\=to.be], text(fill:black)[eat-#prog], [2#sg.#poss], [head]),
-    morphemes_style: text.with(fill: blue),
-    translation: text(weight: "bold")[I'm eating your head!],
-)
-```
-]
+    translation: text(weight: \"bold\")[I'm eating your head!],
+)", addl-bindings: (prog: prog, sbj: sbj, poss: poss, sg: sg))
+
 //TODO add `line_styles` param
 
 
 == Further Example Glosses
 
-These example glosses replicate the ones given in
-#link("https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf").
+These are the first twelve example glosses given in #link("https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf").
+along with the Typst markup needed to generate them:
 
 #{
     gloss_count.update(0)
