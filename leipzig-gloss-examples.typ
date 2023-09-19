@@ -7,7 +7,7 @@
 #let codeblock-old(contents) = block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, contents)
 
 #let codeblock(contents, addl-bindings: (:)) = {
-    eval(contents, mode: "markup", scope: (gloss: gloss) + addl-bindings)
+    eval(contents, mode: "markup", scope: (gloss: gloss, numbered_gloss: numbered_gloss) + addl-bindings)
     block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, raw(contents, lang: "typst"))
 }
 
@@ -38,7 +38,7 @@ look as is feasible.
 This PDF will show examples of the module's functionality and detail relevant
 parameters. For more information or to inform devs of a bug or other issue,
 visit the module's Github repository
-#link("https://github.com/neunenak/typst-leipzig-glossing")[neunenak/typst-leipzig-glossing].
+#link("https://github.com/neunenak/typst-leipzig-glossing")
 
 = Basic glossing functionality
 
@@ -117,7 +117,7 @@ To number gloss examples, use `#numbered_gloss` in place of `gloss`. All other p
     transliteration: ([gv-prtskvn-i],),
     morphemes: ([1#pl.#obj\-peel-#fmnt],),
     translation: \"You peeled us\",
-)", addl-bindings: (numbered_gloss: numbered_gloss, pl: pl, obj: obj, fmnt: fmnt))
+)", addl-bindings: (pl: pl, obj: obj, fmnt: fmnt))
 
 The displayed number for numbered glosses is iterated for each numbered gloss
 that appears throughout the document. Unnumbered glosses do not increment the
@@ -166,80 +166,91 @@ along with the Typst markup needed to generate them:
     gloss_count.update(0)
 }
 
-#numbered_gloss(
+#codeblock(
+"#numbered_gloss(
     header_text: [Indonesian (Sneddon 1996:237)],
     source_text: ([Mereka], [di], [Jakarta], [sekarang.]),
     morphemes: ([they], [in], [Jakarta], [now]),
-    translation: "They are in Jakarta now",
-)
+    translation: \"They are in Jakarta now\",
+)")
 
-#numbered_gloss(
+#codeblock(
+"#numbered_gloss(
     header_text: [Lezgian (Haspelmath 1993:207)],
     source_text: ([Gila], [abur-u-n], [ferma], [hamišaluǧ], [güǧüna], [amuq’-da-č.]),
     morphemes: ([now], [they-#obl\-#gen], [farm], [forever], [behind], [stay-#fut\-#neg]),
-    translation: "Now their farm will not stay behind forever.",
-)
+    translation: \"Now their farm will not stay behind forever.\",
+)", addl-bindings: (fut: fut, neg: neg, obl: obl, gen:gen))
 
-#numbered_gloss(
+#codeblock(
+"#numbered_gloss(
     header_text: [West Greenlandic (Fortescue 1984:127)],
     source_text: ([palasi=lu], [niuirtur=lu]),
     morphemes: ([priest=and], [shopkeeper=and]),
-    translation: "both the priest and the shopkeeper",
-)
+    translation: \"both the priest and the shopkeeper\",
+)")
 
-#numbered_gloss(
+#codeblock(
+"#numbered_gloss(
     header_text: [Hakha Lai],
     source_text: ([a-nii -láay],),
     morphemes: ([3#sg\-laugh-#fut],),
     translation: [s/he will laugh],
-)
+)", addl-bindings: (sg: sg, fut: fut))
 
-#numbered_gloss(
+#codeblock(
+"#numbered_gloss(
     header_text: [Russian],
     source_text: ([My], [s], [Marko], [poexa-l-i], [avtobus-om], [v], [Peredelkino]),
     morphemes: ([1#pl], [#com], [Marko], [go-#pst\-#pl], [bus-#ins], [#all], [Peredelkino]),
     additional_gloss_lines: (([we], [with], [Marko], [go-#pst\-#pl], [bus-by], [to], [Peredelkino]),),
-    translation: "Marko and I went to Perdelkino by bus",
-)
+    translation: \"Marko and I went to Perdelkino by bus\",
+)", addl-bindings: (com: com, pl: pl, ins: ins, all: all, pst:pst))
 
-#numbered_gloss(
+#codeblock(
+"#numbered_gloss(
     header_text: [Turkish],
     source_text: ([çık-mak],),
     morphemes: ([come.out-#inf],),
-    translation: "to come out",
-)
+    translation: \"to come out\",
+)", addl-bindings: (inf: inf))
 
-#numbered_gloss(
+#codeblock(
+"#numbered_gloss(
     header_text: [Latin],
     source_text: ([insul-arum],),
     morphemes: ([island-#gen\-#pl],),
-    translation: "of the islands",
-)
+    translation: \"of the islands\",
+)", addl-bindings: (gen:gen, pl: pl))
 
-#numbered_gloss(
+#codeblock(
+"#numbered_gloss(
     header_text: [French],
     source_text: ([aux], [chevaux]),
     morphemes: ([to-#art\-#pl],[horse.#pl]),
-    translation: "to the horses",
-)
+    translation: \"to the horses\",
+)",addl-bindings: (art:art, pl:pl))
 
-#numbered_gloss(
+#codeblock(
+"#numbered_gloss(
     header_text: [German],
     source_text: ([unser-n], [Väter-n]),
     morphemes: ([our-#dat\-#pl],[father.#pl\-#dat.#pl]),
-    translation: "to our fathers",
-)
+    translation: \"to our fathers\",
+)", addl-bindings: (dat:dat, pl:pl))
 
-#numbered_gloss(
+#codeblock(
+"#numbered_gloss(
     header_text: [Hittite (Lehmann 1982:211)],
     source_text: ([n=an], [apedani], [mehuni],[essandu.]),
     morphemes: ([#smallcaps[conn]=him], [that.#dat.#sg], [time.#dat.#sg], [eat.they.shall]),
-    translation: "They shall celebrate him on that date",
-)
+    translation: \"They shall celebrate him on that date\",
+)", addl-bindings: (pl:pl, sg:sg, dat:dat))
 
-#numbered_gloss(
+#codeblock(
+"#numbered_gloss(
     header_text: [Jaminjung (Schultze-Berndt 2000:92)],
     source_text: ([nanggayan], [guny-bi-yarluga?]),
     morphemes: ([who], [2#du.#A.3#sg.#P\-#fut\-poke]),
-    translation: "Who do you two want to spear?",
-)
+    translation: \"Who do you two want to spear?\",
+)", addl-bindings: (du:du, sg:sg, fut:fut, A:A, P:P))
