@@ -6,6 +6,11 @@
 
 #let codeblock(contents) = block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, contents)
 
+#let codeblock2(contents) = {
+    eval(contents, mode: "markup", scope: (gloss: gloss))
+    block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, raw(contents, lang: "typst"))
+}
+
 #let fmnt = emit-abbreviation("FMNT")
 
 
@@ -41,25 +46,15 @@ visit the module's Github repository
 As a first example, here is a gloss of a text in Georgian, along with the Typst code used to generate it:
 
 
-#gloss(
-    header_text: [from "Georgian and the Unaccusative Hypothesis", Alice Harris, 1982],
+#codeblock2(
+"#gloss(
+    header_text: [from \"Georgian and the Unaccusative Hypothesis\", Alice Harris, 1982],
     source_text: ([ბავშვ-ი], [ატირდა]),
     transliteration: ([bavšv-i], [aṭirda]),
     morphemes: ([child-#smallcaps[nom]], [3S/cry/#smallcaps[incho]/II]),
     translation: [The child burst out crying],
-)
+)")
 
-#codeblock[
-```typst
-#gloss(
-    header_text: [from "Georgian and the Unaccusative Hypothesis", Alice Harris, 1982],
-    source_text: ([ბავშვ-ი], [ატირდა]),
-    transliteration: ([bavšv-i], [aṭirda]),
-    morphemes: ([child-#smallcaps[nom]], [3S/cry/#smallcaps[incho]/II]),
-    translation: [The child burst out crying],
-)
-```
-]
 
 And an example for English which exhibits some additional styling, and uses imports from another file
 for common glossing abbreviations:
