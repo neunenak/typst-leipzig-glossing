@@ -10,10 +10,14 @@
     block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, raw(contents, lang: "typst"))
 }
 
+#let codeblock-no-eval(contents) = {
+    block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, raw(contents, lang: "typst"))
+}
+
 // Abbreviations used in this document
 
 #import abbreviations: poss, prog, sg, pl, sbj, obj, fut, neg, obl, gen, com, ins, all, pst, inf
-#import abbreviations: art, dat, du, A, P
+#import abbreviations: art, dat, du, A, P, prf
 
 #let fmnt = abbreviations.emit-abbreviation("FMNT")
 
@@ -187,6 +191,37 @@ way will override any contradictory line-level formatting.
 )", addl-bindings: (prog: prog, sbj: sbj, poss: poss, sg: sg))
 
 //TODO add `line_styles` param
+
+= Standard Abbreviations
+
+The Leipzig Glossing Rules define a commonly-used set of short abbreviations
+for grammatical terms used in glosses, such as #abbreviations.acc for
+"accusative (case)", or #abbreviations.ptcp for "participle". By convention,
+these are typeset using #smallcaps[smallcaps]. This package contains a module value `abbreviations`. Individual abbreviations may be accessed either
+with Typst field access notation or by importing them from `abbreviations`:
+
+
+#gloss(
+    header_text: [(from _Why Caucasian Languages?_, Bernard Comrie, in _Endangered Languages of the Caucasus and Beyond_)],
+    source_text: ([\[qálɐ-m], [∅-kw’-á\]], [ɬ’ə́-r]),
+    morphemes: ([city-#obl], [3#sg\-go-#prf], [man-#abbreviations.abs]),
+    translation: "The man who went to the city."
+)
+
+#codeblock-no-eval(
+"#import \"leipzig-gloss.typ\": abbreviations
+#import abbreviations: obl, sg, prf
+
+#gloss(
+    header_text: [(from _Why Caucasian Languages?_, by Bernard Comrie, in _Endangered Languages of the Caucasus and Beyond_)],
+    source_text: ([\[qálɐ-m], [∅-kw’-á\]], [ɬ’ə́-r]),
+    morphemes: ([city-#obl], [3#sg\-go-#prf], [man-#abbreviations.abs]),
+    translation: \"The man who went to the city.\"
+)")
+
+The full list of abbreviations available is identical to the list in "Appendix:
+List of Standard Abbreviations" of the Leipzig Glossing Rules document.
+//TODO document this in full somewhere
 
 
 = Further Example Glosses
