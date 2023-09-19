@@ -151,7 +151,7 @@ standard Typst counter functions to control gloss numbering:
 "#gloss-count.update(20)
 
 #numbered-gloss(
-    header_text: [from _Standard Basque: A Progressive Grammar_ by Rudolf de Rijk],
+    header_text: [_Standard Basque: A Progressive Grammar_ by Rudolf de Rijk, quoting P. Charriton],
     source_text: ([Bada beti guregan zorion handi baten nahia.],),
     source_text_style: none,
     translation: [There always is in us a will for a great happiness.],
