@@ -1,4 +1,4 @@
-#import "leipzig-gloss.typ": gloss, numbered-gloss, gloss_count
+#import "leipzig-gloss.typ": gloss, numbered-gloss, gloss-count
 #import "linguistic-abbreviations.typ": *
 
 #show link: x => underline[*#x*]
@@ -143,11 +143,20 @@ The displayed number for numbered glosses is iterated for each numbered gloss
 that appears throughout the document. Unnumbered glosses do not increment the
 counter for the numbered glosses.
 
-The gloss count is controlled by the Typst counter variable `gloss_count`. This
-variable can be imported from the `leipzig-gloss` package and reset using the
-standard Typst counter functions to control gloss numbering.
+The gloss count is controlled by the Typst counter variable `gloss-count`. This
+variable can be imported from the `leipzig-gloss` package and manipulated using the
+standard Typst counter functions to control gloss numbering:
 
-//TODO add examples here
+#codeblock(
+"
+#gloss-count.update(20)
+
+#numbered-gloss(
+    header_text: [from _Standard Basque: A Progressive Grammar_ by Rudolf de Rijk],
+    source_text: ([Bada beti guregan zorion handi baten nahia.],),
+    source_text_style: none,
+    translation: [There always is in us a will for a great happiness.],
+)", addl-bindings: (gloss-count: gloss-count))
 
 
 == Styling lines of a gloss
@@ -183,7 +192,7 @@ These are the first twelve example glosses given in #link("https://www.eva.mpg.d
 along with the Typst markup needed to generate them:
 
 #{
-    gloss_count.update(0)
+    gloss-count.update(0)
 }
 
 #codeblock(

@@ -1,4 +1,4 @@
-#let gloss_count = counter("gloss_count")
+#let gloss-count = counter("gloss_count")
 
 #let build_gloss(spacing_between_items, formatters, gloss_line_lists) = {
     assert(gloss_line_lists.len() > 0, message: "Gloss line lists cannot be empty")
@@ -107,11 +107,11 @@
     }
 
     if numbering {
-        gloss_count.step()
+        gloss-count.step()
     }
 
     let gloss_number = if numbering {
-        [(#gloss_count.display())]
+        [(#gloss-count.display())]
     } else {
         none
     }
