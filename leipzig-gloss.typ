@@ -39,7 +39,7 @@
     header: none,
     header-style: none,
     source: (),
-    source-style: emph,
+    source-style: none,
     transliteration: none,
     transliteration-style: none,
     morphemes: none,
@@ -47,6 +47,7 @@
     additional-lines: (), //List of list of content
     translation: none,
     translation-style: none,
+
     item-spacing: 1em,
     gloss-padding: 2.0em, //TODO document these
     left_padding: 0.5em,
@@ -101,7 +102,7 @@
             linebreak()
 
             if translation-style == none {
-                ["#translation"]
+                translation
             } else {
                 translation-style(translation)
             }

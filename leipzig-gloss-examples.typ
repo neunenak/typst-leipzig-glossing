@@ -1,7 +1,6 @@
 #import "leipzig-gloss.typ": abbreviations, gloss, numbered-gloss, gloss-count
 
 #show link: x => underline[*#x*]
-//#show raw: x => text(fill: rgb("#43464b"))[#x]
 
 #let codeblock-old(contents) = block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, contents)
 
@@ -48,6 +47,8 @@ parameters. For more information or to inform devs of a bug or other issue,
 visit the module's Github repository
 #link("https://github.com/neunenak/typst-leipzig-glossing")
 
+#show raw: x => highlight(fill: luma(230), extent: 1pt)[#x]
+
 = Basic glossing functionality
 
 
@@ -72,8 +73,9 @@ for common glossing abbreviations:
   source: ([I'm], [eat-ing], [your], [head]),
   source-style: (item) => text(fill: red)[#item],
   morphemes: ([1#sg.#sbj\=to.be], [eat-#prog], [2#sg.#poss], [head]),
-  morphemes-style: text.with(fill: blue),
+  morphemes-style: text.with(size: 10pt, fill: blue),
   translation: text(weight: \"semibold\")[I'm eating your head!],
+  translation-style: (item) => [\"#item\"],
 )
 ", addl-bindings: (poss: poss, prog: prog, sg: sg, sbj: sbj))
 
@@ -90,6 +92,7 @@ text and translation, without a gloss:
 #codeblock(
 "#gloss(
     source: ([Trato de entender, debo comprender, qué es lo que ha hecho conmigo],),
+    source-style: emph,
     translation: [I try to understand, I must comprehend, what she has done with me],
 )
 ")
@@ -130,7 +133,6 @@ same arguments as `gloss`:
 #codeblock(
 "#gloss(
     source: ([გვ-ფრცქვნ-ი],),
-    source-style: none,
     transliteration: ([gv-prtskvn-i],),
     morphemes: ([1#pl.#obj\-peel-#fmnt],),
     translation: \"You peeled us\",
@@ -139,7 +141,6 @@ same arguments as `gloss`:
 
 #numbered-gloss(
     source: ([მ-ფრცქვნ-ი],),
-    source-style: none,
     transliteration: ([m-prtskvn-i],),
     morphemes: ([1#sg.#obj\-peel-#fmnt],),
     translation: \"You peeled me\",
