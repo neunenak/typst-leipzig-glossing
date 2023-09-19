@@ -1,5 +1,4 @@
-#import "leipzig-gloss.typ": gloss, numbered-gloss, gloss-count
-#import "linguistic-abbreviations.typ": *
+#import "leipzig-gloss.typ": abbreviations, gloss, numbered-gloss, gloss-count
 
 #show link: x => underline[*#x*]
 //#show raw: x => text(fill: rgb("#43464b"))[#x]
@@ -11,7 +10,12 @@
     block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, raw(contents, lang: "typst"))
 }
 
-#let fmnt = emit-abbreviation("FMNT")
+// Abbreviations used in this document
+
+#import abbreviations: poss, prog, sg, pl, sbj, obj, fut, neg, obl, gen, com, ins, all, pst, inf
+#import abbreviations: art, dat, du, A, P
+
+#let fmnt = abbreviations.emit-abbreviation("FMNT")
 
 
 = Introduction

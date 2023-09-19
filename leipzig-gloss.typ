@@ -1,3 +1,5 @@
+#import "abbreviations.typ"
+
 #let gloss-count = counter("gloss_count")
 
 #let build_gloss(spacing_between_items, formatters, gloss_line_lists) = {
