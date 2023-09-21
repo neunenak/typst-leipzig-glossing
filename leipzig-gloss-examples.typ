@@ -133,6 +133,7 @@ parameters:
 )
 ")
 
+//TODO add a custom numbering system that can handle example 18a-c of Kartvelian Morphosyntax and Number Agreement
 == Numbering Glosses
 
 The `gloss` function takes a boolean parameter `numbering` which will add an incrementing
