@@ -111,6 +111,8 @@ locate(loc => {
 
 }
 
+#let render-abbreviation(symbol) = smallcaps(lower(symbol))
+
 // Public function. Given a symbol that is a string, emits
 // the lowercase version of that string in smallcaps format, and adds
 // its use to the `used-abbreviations` table
@@ -123,7 +125,7 @@ locate(loc => {
   }
 
   mark_used(symbol)
-  smallcaps(lower(symbol))
+  render-abbreviation(symbol)
 }
 
 

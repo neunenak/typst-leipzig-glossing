@@ -4,13 +4,15 @@
 
 #let codeblock-old(contents) = block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, contents)
 
-#let codeblock(contents, addl-bindings: (:)) = {
-    eval(contents, mode: "markup", scope: (gloss: gloss, numbered-gloss: numbered-gloss) + addl-bindings)
-    block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, raw(contents, lang: "typst"))
-}
+#let codeblock(contents, addl-bindings: (:), unevaled-first-line: none) = {
+    let full-contents = if unevaled-first-line != none {
+        unevaled-first-line + "\n" + contents
+    } else {
+        contents
+    }
 
-#let codeblock-no-eval(contents) = {
-    block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, raw(contents, lang: "typst"))
+    eval(contents, mode: "markup", scope: (gloss: gloss, numbered-gloss: numbered-gloss) + addl-bindings)
+    block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, raw(full-contents, lang: "typst"))
 }
 
 // Abbreviations used in this document
@@ -62,7 +64,7 @@ As a first example, here is a gloss of a text in Georgian, along with the Typst 
     transliteration: ([bavšv-i], [aṭirda]),
     morphemes: ([child-#smallcaps[nom]], [3S/cry/#smallcaps[incho]/II]),
     translation: [The child burst out crying],
-)")
+)", unevaled-first-line: "#import \"leipzig-gloss.typ\": gloss")
 
 
 And an example for English which exhibits some additional styling, and uses imports from another file
@@ -119,8 +121,6 @@ parameters:
     translation: [\"Because of the boy, the tree bent.\"]
 )
 ")
-
-
 
 == Numbering Glosses
 
@@ -196,33 +196,42 @@ way will override any contradictory line-level formatting.
 
 The Leipzig Glossing Rules define a commonly-used set of short abbreviations
 for grammatical terms used in glosses, such as #abbreviations.acc for
-"accusative (case)", or #abbreviations.ptcp for "participle". By convention,
-these are typeset using #smallcaps[smallcaps]. This package contains a module value `abbreviations`. Individual abbreviations may be accessed either
-with Typst field access notation or by importing them from `abbreviations`:
+"accusative (case)", or #abbreviations.ptcp for "participle" (see "Appendix:
+List of Standard Abbreviations in the Leipzig Glossing Rules document)
 
 
-#gloss(
-    header: [(from _Why Caucasian Languages?_, Bernard Comrie, in _Endangered Languages of the Caucasus and Beyond_)],
-    source: ([\[qálɐ-m], [∅-kw’-á\]], [ɬ’ə́-r]),
-    morphemes: ([city-#obl], [3#sg\-go-#prf], [man-#abbreviations.abs]),
-    translation: "The man who went to the city."
-)
+By convention, these are typeset using #smallcaps[smallcaps]. This package
+contains a module value `abbreviations`. Individual abbreviations may be
+accessed either with Typst field access notation or by importing them from
+`abbreviations`:
 
-#codeblock-no-eval(
-"#import \"leipzig-gloss.typ\": abbreviations
-#import abbreviations: obl, sg, prf
+
+#codeblock(
+"#import abbreviations: obl, sg, prf
 
 #gloss(
     header: [(from _Why Caucasian Languages?_, by Bernard Comrie, in _Endangered Languages of the Caucasus and Beyond_)],
     source: ([\[qálɐ-m], [∅-kw’-á\]], [ɬ’ə́-r]),
     morphemes: ([city-#obl], [3#sg\-go-#prf], [man-#abbreviations.abs]),
     translation: \"The man who went to the city.\"
-)")
+)", addl-bindings: (abbreviations: abbreviations), unevaled-first-line: "#import \"leipzig-gloss.typ\": abbreviations")
 
-The full list of abbreviations available is identical to the list in "Appendix:
-List of Standard Abbreviations" of the Leipzig Glossing Rules document.
-//TODO document this in full somewhere
 
+The full list of abbreviations is as follows:
+
+== Full list of abbreviations
+
+#{
+for (abbreviation, description) in abbreviations.standard-abbreviations {
+        [#abbreviations.render-abbreviation(abbreviation) - #raw(lower(abbreviation)) - #description ]
+        linebreak()
+    }
+}
+
+== Building used-abbreviations pages
+
+A user of `leipzig-glossing` might wish to generate an introductory page
+displaying which abbreviations were actually used in the document.
 
 = Further Example Glosses
 
