@@ -341,3 +341,12 @@ along with the Typst markup needed to generate them:
     morphemes: ([who], [2#du.#A.3#sg.#P\-#fut\-poke]),
     translation: \"Who do you two want to spear?\",
 )", addl-bindings: (du:du, sg:sg, fut:fut, A:A, P:P))
+
+
+#codeblock("
+#numbered-gloss(
+    header: [Turkish (cf. 6)],
+    source: ([çık-mak],),
+    morphemes: ([come_out-#inf],),
+    translation: ['to come out'],
+)", addl-bindings: (inf: inf))
