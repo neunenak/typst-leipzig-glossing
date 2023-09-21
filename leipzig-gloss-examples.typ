@@ -104,6 +104,7 @@ Note that it is still necessary to wrap the `source` argument in an array of len
 
 Here is an example of a lengthy gloss that forces a line break:
 
+// adapted from https://brill.com/fileasset/downloads_static/static_publishingbooks_formatting_glosses_linguistic_examples.pdf
 #codeblock(
 "#gloss(
     source:    ([Ich],[arbeite],[ein],[Jahr],[um],[das],[Geld], [zu],[verdienen,],[das], [dein],[Bruder], [an],[einem],[Wochenende],[ausgibt.]),
