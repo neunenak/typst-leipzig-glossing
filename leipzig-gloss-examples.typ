@@ -102,6 +102,16 @@ text and translation, without a gloss:
 
 Note that it is still necessary to wrap the `source` argument in an array of length one.
 
+Here is an example of a lengthy gloss that forces a line break:
+
+#codeblock(
+"#gloss(
+    source:    ([Ich],[arbeite],[ein],[Jahr],[um],[das],[Geld], [zu],[verdienen,],[das], [dein],[Bruder], [an],[einem],[Wochenende],[ausgibt.]),
+    source-style: text.with(weight: \"bold\"),
+    morphemes: ([I],  [work],[  one], [year],[to],[the],[money],[to],[earn,],     [that],[your],[brother],[on],[one],  [weekend],   [spends.]),
+    translation: [\"I work one year to earn the money that your brother spends in one weekend\"]
+)", addl-bindings: (poss: poss, prog: prog, sg: sg, sbj: sbj))
+
 
 To add more than three glossing lines, there is an additional parameter
 `additional-lines` that can take a list of arbitrarily many more glossing
