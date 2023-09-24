@@ -1,6 +1,6 @@
 [package]
 name = "leipzig-glossing"
-version = "0.1.9"
+version = "0.2.0"
 entrypoint = "leipzig-gloss.typ"
 authors = ["Greg Shuflin", "Other open-source contributors"]
 license = "MIT"
