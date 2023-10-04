@@ -1,4 +1,4 @@
-#set document(title: "leipzig-glossing documentation")
+#set document(title: "typst leipzig-glossing documentation")
 #import "leipzig-gloss.typ": abbreviations, gloss, numbered-gloss, gloss-count
 
 #show link: x => underline[*#x*]
@@ -23,7 +23,7 @@
 
 #let fmnt = abbreviations.emit-abbreviation("FMNT")
 
-#align(center)[#text(17pt)[`typst-leipzig-glossing` Documentation]]
+#align(center)[#text(17pt)[Typst `leipzig-glossing` Documentation]]
 
 = Introduction
 
@@ -242,10 +242,28 @@ for (abbreviation, description) in abbreviations.standard-abbreviations {
     }
 }
 
+== Custom abbreviations
+
+Custom abbreviations may be defined using the `abbreviations.emit-abbreviation` function:
+
+#codeblock(
+"#import abbreviations: obl, sg, prf, fut, emit-abbreviation
+
+#let ts = emit-abbreviation(\"TS\")
+
+#gloss(
+    header: [(from _Georgian: A Structural Reference Grammar_, by George Hewitt)],
+    source: ([g-nax-av-en],),
+    morphemes: ([you#sub[2]-see(#fut)#sub[4]-#ts#sub[7]-they#sub[11]],),
+    translation: \"they will see you\",
+)", addl-bindings: (abbreviations: abbreviations), unevaled-first-line: "#import \"leipzig-gloss.typ\": abbreviations")
+
 == Building used-abbreviations pages
 
 A user of `leipzig-glossing` might wish to generate an introductory page
-displaying which abbreviations were actually used in the document.
+displaying which abbreviations were actually used in the document. The
+`abbreviations.with-used-abbreviations` function may be used for this purpose;
+see the `abbreviations-used-example.typ` file in `leipzig-glossing` source for an example.
 
 = Further Example Glosses
 
