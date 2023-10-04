@@ -2,8 +2,9 @@ default:
     just --list
 
 
-build-example:
-    typst compile leipzig-gloss-examples.typ
+# Build the leipzig-glossing documentation PDF
+build-doc:
+    typst compile documentation.typ
 
 
 build-abbreviations-example:

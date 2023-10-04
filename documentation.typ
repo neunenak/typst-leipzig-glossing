@@ -1,3 +1,4 @@
+#set document(title: "leipzig-glossing documentation")
 #import "leipzig-gloss.typ": abbreviations, gloss, numbered-gloss, gloss-count
 
 #show link: x => underline[*#x*]
@@ -22,6 +23,7 @@
 
 #let fmnt = abbreviations.emit-abbreviation("FMNT")
 
+#align(center)[#text(17pt)[`typst-leipzig-glossing` Documentation]]
 
 = Introduction
 
