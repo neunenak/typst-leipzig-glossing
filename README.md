@@ -4,10 +4,12 @@
 creating interlinear morpheme-by-morpheme glosses according to the [Leipzig
 glossing rules](https://www.eva.mpg.de/lingua/pdf/Glossing-Rules.pdf).
 
-Run `typst compile leipzig-gloss-examples.typ` in the root of the repository to
+# Documentation
+
+Run `typst compile documentation.typ` in the root of the repository to
 generate a pdf file with examples and documentation. This command is also
 codified in the accompanying [justfile](https://github.com/casey/just) as `just
-build-example`.
+build-doc`.
 
 The definitions intended for use by end users are the `gloss` and
 `numbered-gloss` functions, and the `abbreviations` submodule.
