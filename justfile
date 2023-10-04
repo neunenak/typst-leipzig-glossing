@@ -6,6 +6,6 @@ default:
 build-doc:
     typst compile documentation.typ
 
-
+# Build the abbbreviations-used example
 build-abbreviations-example:
     typst compile abbreviations-used-example.typ

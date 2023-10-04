@@ -1,4 +1,4 @@
-#import "linguistic-abbreviations.typ": *
+#import "abbreviations.typ": *
 
 #let custom-abbreviations = (
   "FMNT": "Present/Future stem formant",
@@ -7,7 +7,7 @@
 #let fmnt = emit-abbreviation("FMNT")
 
 // An example function that uses `with-used-abbreviations`
-#let print_usage_chart = with-used-abbreviations.with(debug: false)(final-used-abbreviations => {
+#let print_usage_chart = with-used-abbreviations(final-used-abbreviations => {
 
     show terms: t => {
       for t in t.children [
