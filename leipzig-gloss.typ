@@ -114,7 +114,7 @@
     }
 
     let gloss_number = if numbering {
-        [(#gloss-count.display())]
+        [(#context gloss-count.display())]
     } else {
         none
     }
