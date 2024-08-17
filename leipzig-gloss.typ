@@ -1,6 +1,7 @@
 #import "abbreviations.typ"
 
 #let gloss-count = counter("gloss_count")
+#let cmdlabel = label // a workround so we can use `label` as a variable name
 
 #let build_gloss(item-spacing, formatters, gloss_line_lists) = {
     assert(gloss_line_lists.len() > 0, message: "Gloss line lists cannot be empty")
@@ -47,6 +48,7 @@
     additional-lines: (), //List of list of content
     translation: none,
     translation-style: none,
+    label: none,
 
     item-spacing: 1em,
     gloss-padding: 2.0em, //TODO document these
@@ -121,13 +123,18 @@
 
     style(styles => {
         block(breakable: breakable)[
-            #stack(
-            dir:ltr, //TODO this needs to be more flexible
-            left_padding,
-            [#gloss_number],
-            gloss-padding - left_padding - measure([#gloss_number],styles).width,
-            [#gloss_items]
-            )
+            #figure(
+                kind: "lingexample",
+                supplement: [Example],
+                numbering: it => [#gloss-count.display()],
+                stack(
+                    dir: ltr, //TODO this needs to be more flexible
+                    left_padding,
+                    [#gloss_number],
+                    gloss-padding - left_padding - measure([#gloss_number],styles).width,
+                    align(left)[#gloss_items],
+                ),
+            ) #if label != none {cmdlabel(label)}
         ]
     }
     )
