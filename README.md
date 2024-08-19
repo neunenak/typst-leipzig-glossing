@@ -30,3 +30,6 @@ This library uses the MIT license; see `LICENSE.txt`.
 
 Thanks to [Bethany E. Toma](https://github.com/betoma) for a number of
 suggestions and improvements.
+
+Thanks to [Maja Abramski-Kronenberg](https://github.com/rwmpelstilzchen) for
+the labeling functionality.
