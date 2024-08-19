@@ -187,12 +187,17 @@ References to individual examples can be achieved using the `label` argument and
 #numbered-gloss(
     header: [Middle Welsh; modified from _Grammatical number in Welsh_ (1999) by Silva Nurmio (§~2.1.1)],
     source: ([ac], [ny], [allvs], [y], [dewinyon], [atteb], [idav]),
-		morphemes: ([and], [#neg], [be_able.#smallcaps[pret].3#sg], [#smallcaps[def]], [sorcerer.#pl], [answer.#smallcaps[inf]], [to.3#sg.#smallcaps[m]]),
+    morphemes: ([and], [#neg], [be_able.#smallcaps[pret].3#sg], [#smallcaps[def]], [sorcerer.#pl], [answer.#smallcaps[inf]], [to.3#sg.#smallcaps[m]]),
     translation: [and the sorcerers could not answer him],
-		label: \"sorcerers\",
+    label: \"sorcerers\",
+    label-supplement: [Example]
 )
 
 As we have seen in @sorcerers, […].", addl-bindings: (neg: neg, sg: sg, pl: pl))
+
+Labeling uses the Typst #link("https://typst.app/docs/reference/model/figure/")[figure] document element. The `label-supplement`
+parameter fills in the `suppliment` parameter of a `figure`, which is `[example]` by default.
+
 
 == Styling lines of a gloss
 
