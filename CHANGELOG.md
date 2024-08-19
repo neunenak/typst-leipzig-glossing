@@ -1,8 +1,10 @@
 # Changelog
 
+## 0.3.0
+* Added `label` and `label-supplement` arguments to `gloss` function
+* Added borders around code + rendered example in documentation pdf
 
-## 0.2.0 (upcoming)
-
+## 0.2.0
 * renamed `numbered_gloss` to `numbered-gloss`, `gloss_count` to `gloss-count`, in light of the
 Typst style preference for kebab-case. Also renamed their arguments to use snake-case as well.
 * Documented standard abbreviations
