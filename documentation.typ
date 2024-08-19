@@ -3,8 +3,6 @@
 
 #show link: x => underline[*#x*]
 
-#let codeblock-old(contents) = block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, contents)
-
 #let codeblock(contents, addl-bindings: (:), unevaled-first-line: none) = {
     let full-contents = if unevaled-first-line != none {
         unevaled-first-line + "\n" + contents
@@ -12,8 +10,10 @@
         contents
     }
 
-    eval(contents, mode: "markup", scope: (gloss: gloss, numbered-gloss: numbered-gloss) + addl-bindings)
-    block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, raw(full-contents, lang: "typst"))
+    block(stroke: 0.5pt + black, inset: 4pt, width: 100%, breakable: false)[
+        #eval(contents, mode: "markup", scope: (gloss: gloss, numbered-gloss: numbered-gloss) + addl-bindings)
+        #block(fill: luma(230), inset: 8pt, radius: 4pt, breakable: false, width: 100%, raw(full-contents, lang: "typst"))
+    ]
 }
 
 // Abbreviations used in this document
