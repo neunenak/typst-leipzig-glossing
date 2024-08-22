@@ -18,7 +18,7 @@
 
 // Abbreviations used in this document
 
-#import abbreviations: poss, prog, sg, pl, sbj, obj, fut, neg, obl, gen, com, ins, all, pst, inf
+#import abbreviations: poss, prog, sg, pl, sbj, obj, fut, neg, obl, gen, com, ins, all, pst, inf, indf, def, dem, pred
 #import abbreviations: art, dat, du, A, P, prf
 
 #let fmnt = abbreviations.emit-abbreviation("FMNT")
@@ -135,6 +135,34 @@ parameters:
 )
 ")
 
+Sub-examples can be achieved by using the same `#gloss` function but surrounding each sub-example with parentheses, separated by commas. A global `header` field for the set can be added.
+
+#codeblock(
+"#gloss(
+    header: [Coptic; transliterated and glossed based on _Coptic in 20 lessons_ (2007) by Layton Bently (§~28)],
+    (
+        header: [Indefinite articles],
+        source: ([hen-maein], [mn-hen-špêre]),
+        morphemes: ([#indf.#pl\-sign], [with-#indf.#pl\-wonder]),
+        translation: [signs and wonders]
+    ),
+    (
+        header: [Definite articles],
+        source: ([m-maein], [mn-ne-špêre]),
+        morphemes: ([#def.#pl\-sign], [with-#def.#pl\-wonder]),
+        translation: [the signs and the wonders]
+    ),
+    (
+        header: [Definite pronouns],
+        source: ([nei-maein], [mn-nei-špêre]),
+        morphemes: ([#dem.#pl\-sign], [with-#dem.#pl\-wonder]),
+        translation: [these signs and these wonders]
+    ),
+)
+", addl-bindings: (indf: indf, pl: pl, sg: sg, def: def, dem: dem))
+
+
+
 //TODO add a custom numbering system that can handle example 18a-c of Kartvelian Morphosyntax and Number Agreement
 == Numbering Glosses
 
@@ -195,9 +223,29 @@ References to individual examples can be achieved using the `label` argument and
 
 As we have seen in @sorcerers, […].", addl-bindings: (neg: neg, sg: sg, pl: pl))
 
-Labeling uses the Typst #link("https://typst.app/docs/reference/model/figure/")[figure] document element. The `label-supplement`
-parameter fills in the `suppliment` parameter of a `figure`, which is `[example]` by default.
+Labelling uses the Typst #link("https://typst.app/docs/reference/model/figure/")[figure] document element. The `label-supplement`
+parameter fills in the `suppliment` parameter of a `figure`, which is `[example]` by default. Labelling of sub-examples is possible as well, using the same `label` and `label-supplement` fields but within the parentheses surrounding the sub-example in question.
 
+#codeblock(
+"#numbered-gloss(
+    header: [Hausa; from _Toward a functional typology of adpositions_ (2022) by Zygmunt Frajzyngier (§~3.2)],
+    label: \"hausa\",
+    (
+        source: ([àkwai], [mutā̀nè], [dà], [yawā̀], [a], [kanṑ]),
+        morphemes: ([exist], [People], [#smallcaps[assc]], [many], [#pred], [Kano]),
+        translation: [There are a lot of people in Kano.],
+        label: \"people\"
+    ),
+    (
+        source: ([àkwai], [makar̃antā], [a], [nan], [gàrin]),
+        morphemes: ([exist], [school], [#pred], [#dem], [town]),
+        translation: [There is a school in this town.],
+        label: \"school\",
+    ),
+)
+
+In @hausa there are two sub-examples: @people deals with people and @school with a school.
+", addl-bindings: (pred: pred, dem: dem))
 
 == Styling lines of a gloss
 
