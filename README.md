@@ -17,11 +17,15 @@ The definitions intended for use by end users are the `gloss` and
 
 # Contributing
 
+## Repositories
+
 The canonical repository for this project is on the [Gitea
-instance](https://code.everydayimshuflin.com/greg/typst-lepizig-glossing). The
-repository is also [mirrored on
-Github](https://github.com/neunenak/typst-leipzig-glossing/). Bug reports and
-code contributions are welcome from all users.
+instance](https://code.everydayimshuflin.com/greg/typst-lepizig-glossing).
+
+There is also a [Github mirror](https://github.com/neunenak/typst-leipzig-glossing/), and
+a [Radicle](https://radicle.xyz) mirror available at <rad://z2j7vQLS3EtQbPkrzi7Tn2XR7YWLw>.
+
+Bug reports and code contributions are welcome from all users.
 
 ## License
 This library uses the MIT license; see `LICENSE.txt`.
