@@ -94,10 +94,10 @@
 // Accepts a callback that accepts the state of the `used-abbreviations`
 // dictionary at the end of the document. Also an additional debug parameter
 #let with-used-abbreviations(callback) = {
-locate(loc => {
-    let final_used-abbreviations = used-abbreviations.final(loc)
+  context {
+    let final_used-abbreviations = used-abbreviations.final()
     callback(final_used-abbreviations)
-  })
+  }
 }
 
 #let render-abbreviation(symbol) = smallcaps(lower(symbol))
