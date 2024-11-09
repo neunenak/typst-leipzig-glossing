@@ -36,11 +36,6 @@
     }
 }
 
-// a workround so we can use `label` as a variable name where it is shadowed by the function param `label`
-// Once typst version 0.12 with https://github.com/typst/typst/pull/4038 is released we should be able
-// to replace this workaround with `std.label`
-#let cmdlabel = label
-
 // Typesets the internal part of the interlinear glosses. This function does not deal with the external matters of numbering and labelling; which are handled by `example()`.
 #let gloss(
   header: none,
@@ -151,7 +146,7 @@
                         left-padding,
                         gloss(..subexample-internal)
                     )
-                ) #if "label" in subexample {cmdlabel(subexample.label)}
+                ) #if "label" in subexample {std.label(subexample.label)}
             ]
         ]
     }
@@ -196,7 +191,7 @@
                         }
                     }
                 ),
-            ) #if label != none {cmdlabel(label)}
+            ) #if label != none {std.label(label)}
         ]
     }
     )
