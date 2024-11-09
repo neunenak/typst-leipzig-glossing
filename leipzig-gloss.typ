@@ -177,7 +177,7 @@
                     dir: ltr, //TODO this needs to be more flexible
                     left-padding,
                     [#example-number],
-                    gloss-padding - left-padding - measure([#example-number],styles).width,
+                    gloss-padding - left-padding - measure([#example-number]).width,
                     {
                         if args.pos().len() == 1 { // a simple example with no sub-examples
                             gloss(..arguments(..args.pos().at(0)))
