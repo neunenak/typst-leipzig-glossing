@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.5.0
+* Updated code to support typst version 0.13
+
 ## 0.4.0
 * Implemented new API with `example` and `gloss` functions
 * Some code style changes to be consistent with typst version 0.12
