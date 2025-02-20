@@ -1,6 +1,5 @@
-default:
+_default:
     just --list
-
 
 # Build the leipzig-glossing documentation PDF
 build-doc:
