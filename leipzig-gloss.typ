@@ -51,10 +51,10 @@
   translation-style: none,
   item-spacing: 1em,
 ) = {
-  assert(type(source) == "array", message: "source needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
+  assert(type(source) == array, message: "source needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
 
   if morphemes != none {
-    assert(type(morphemes) == "array", message: "morphemes needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
+    assert(type(morphemes) == array, message: "morphemes needs to be an array; perhaps you forgot to type `(` and `)`, or a trailing comma?")
     assert(source.len() == morphemes.len(), message: "source and morphemes have different lengths")
   }
 
@@ -161,39 +161,38 @@
         none
     }
 
-    style(styles => {
-        block(breakable: breakable)[
-            #figure(
-                kind: "example",
-                numbering: it => [#example-count.display()],
-                outlined: false,
-                supplement: label-supplement,
-                stack(
-                    dir: ltr, //TODO this needs to be more flexible
-                    left-padding,
-                    [#example-number],
-                    gloss-padding - left-padding - measure([#example-number]).width,
-                    {
-                        if args.pos().len() == 1 { // a simple example with no sub-examples
-                            gloss(..arguments(..args.pos().at(0)))
-                        }
-                        else { // containing sub-examples
-                            let subexample-count = counter("subexample-count")
-                            subexample-count.update(0)
-                            set align(left)
-                            if "header" in args.named() {
-                                par[#args.named().header]
-                            }
-                            for subexample in args.pos() {
-                                subexample-count.step()
-                                add-subexample(subexample, subexample-count)
-                            }
-                        }
-                    }
-                ),
-            ) #if label != none {std.label(label)}
-        ]
-    }
+    context(
+      block(breakable: breakable)[
+        #figure(
+          kind: "example",
+          numbering: it => [#example-count.display()],
+          outlined: false,
+          supplement: label-supplement,
+          stack(
+            dir: ltr, //TODO this needs to be more flexible
+            left-padding,
+            [#example-number],
+            gloss-padding - left-padding - measure([#example-number]).width,
+            {
+              if args.pos().len() == 1 { // a simple example with no sub-examples
+                gloss(..arguments(..args.pos().at(0)))
+              }
+              else { // containing sub-examples
+                let subexample-count = counter("subexample-count")
+                subexample-count.update(0)
+                set align(left)
+                if "header" in args.named() {
+                  par[#args.named().header]
+                }
+                for subexample in args.pos() {
+                  subexample-count.step()
+                  add-subexample(subexample, subexample-count)
+                }
+              }
+            }
+          ),
+        ) #if label != none {std.label(label)}
+      ]
     )
 }
 
