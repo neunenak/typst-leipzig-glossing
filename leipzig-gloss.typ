@@ -4,6 +4,8 @@
 // │ Interlinear glosses │
 // ╰─────────────────────╯
 
+#let gen-number = numbering
+
 #let build-gloss(item-spacing, formatters, gloss-line-lists) = {
     assert(gloss-line-lists.len() > 0, message: "Gloss line lists cannot be empty")
 
@@ -121,6 +123,7 @@
     left-padding: 0.5em,
     numbering: false,
     breakable: false,
+    sub-num-pattern: "(a)",
     ..args
 ) = {
     let add-subexample(subexample, count) = {
@@ -142,7 +145,7 @@
                     supplement: it => {if "label-supplement" in subexample {return subexample.label-supplement} else {return "example"}},
                     stack(
                         dir: ltr, //TODO this needs to be more flexible
-                        [(#context count.display("a"))],
+                        [#context count.display(sub-num-pattern)],
                         left-padding,
                         gloss(..subexample-internal)
                     )
