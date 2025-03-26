@@ -4,8 +4,6 @@
 // │ Interlinear glosses │
 // ╰─────────────────────╯
 
-#let gen-number = numbering
-
 #let build-gloss(item-spacing, formatters, gloss-line-lists) = {
     assert(gloss-line-lists.len() > 0, message: "Gloss line lists cannot be empty")
 
