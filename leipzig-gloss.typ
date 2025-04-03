@@ -42,6 +42,7 @@
   header-style: none,
   source: (),
   source-style: none,
+  judge: none,
   transliteration: none,
   transliteration-style: none,
   morphemes: none,
@@ -72,8 +73,11 @@
       linebreak()
     }
 
+    let judge-width = measure(judge).width
+    let source-judge = ([#h(-judge-width)#judge#source.at(0)],) + source.slice(1) // prepend judge to the first word
+
     let formatters = (source-style,)
-    let gloss-line-lists = (source,)
+    let gloss-line-lists = (source-judge,)
 
     if transliteration != none {
       formatters.push(transliteration-style)
