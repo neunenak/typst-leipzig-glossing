@@ -121,6 +121,8 @@
     left-padding: 0.5em,
     numbering: false,
     breakable: false,
+    num-pattern: "(1)",
+    sub-num-pattern: "(a)",
     ..args
 ) = {
     let add-subexample(subexample, count) = {
@@ -142,7 +144,7 @@
                     supplement: it => {if "label-supplement" in subexample {return subexample.label-supplement} else {return "example"}},
                     stack(
                         dir: ltr, //TODO this needs to be more flexible
-                        [(#context count.display("a"))],
+                        [#context count.display(sub-num-pattern)],
                         left-padding,
                         gloss(..subexample-internal)
                     )
@@ -156,7 +158,7 @@
     }
 
     let example-number = if numbering {
-        [(#context example-count.display())]
+        [#context example-count.display(num-pattern)]
     } else {
         none
     }
