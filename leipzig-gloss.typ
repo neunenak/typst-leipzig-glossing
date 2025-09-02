@@ -122,7 +122,7 @@
     numbering: false,
     breakable: false,
     num-pattern: "(1)",
-    sub-num-pattern: "(a)",
+    sub-num-pattern: "a.",
     ..args
 ) = {
     let add-subexample(subexample, count) = {

@@ -214,6 +214,10 @@ A global `header` field for the set can be added.
 ", addl-bindings: (indf: indf, pl: pl, sg: sg, def: def, dem: dem))
 
 
+The parameter `sub-num-pattern` can be provided to `example`, which accepts 
+#link("https://typst.app/docs/reference/model/numbering/")[Typst numbering syntax]
+to format sub-examples.
+
 
 //TODO add a custom numbering system that can handle example 18a-c of Kartvelian Morphosyntax and Number Agreement
 == Numbering Glosses
@@ -309,6 +313,10 @@ Labelling of sub-examples is possible as well, using the same `label` and `label
 
 In @hausa there are two sub-examples: @people deals with people and @school with a school.
 ", addl-bindings: (pred: pred, dem: dem))
+
+The parameter `num-pattern` can be provided to `example`, which accepts 
+#link("https://typst.app/docs/reference/model/numbering/")[Typst numbering syntax]
+to format examples.
 
 = Standard Abbreviations
 
